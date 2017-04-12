@@ -71,16 +71,23 @@
             <label style="position:absolute;top: 20px;">TAG:</label>
             <div class=" " style="margin-top: 20px;margin-left: 50px">
               <input type="checkbox" id="Total" value="Total" v-model="checkedTags"> <label for="Total">Total</label>
-              <input type="checkbox" id="Failure" value="Failure" v-model="checkedTags"> <label for="Failure"> Failure</label>
+              <input type="checkbox" id="Failure" value="Failure" v-model="checkedTags"> <label for="Failure">
+              Failure</label>
               <input type="checkbox" id="Failure%" value="Failure%" v-model="checkedTags"> <label for="Failure%">Failure%</label>
-              <input type="checkbox" id="Min(ms)" value="Min(ms)" v-model="checkedTags"> <label for="Min(ms)">Min(ms) </label>
-              <input type="checkbox" id="Max(ms)" value="Max(ms)" v-model="checkedTags"><label for="Max(ms)">Max(ms)</label><br>
-              <input type="checkbox" id="Avg(ms)" value="Avg(ms)" v-model="checkedTags"><label for="Avg(ms)">Avg(ms)</label>
+              <input type="checkbox" id="Min(ms)" value="Min(ms)" v-model="checkedTags"> <label
+              for="Min(ms)">Min(ms) </label>
+              <input type="checkbox" id="Max(ms)" value="Max(ms)" v-model="checkedTags"><label
+              for="Max(ms)">Max(ms)</label><br>
+              <input type="checkbox" id="Avg(ms)" value="Avg(ms)" v-model="checkedTags"><label
+              for="Avg(ms)">Avg(ms)</label>
               <input type="checkbox" id="95Line(ms)" value="95Line(ms)" v-model="checkedTags"><label for="95Line(ms)">95Line(ms)</label>
-              <input type="checkbox" id="99.9Line(ms)" value="99.9Line(ms)" v-model="checkedTags"><label for="99.9Line(ms)">99.9Line(ms)</label>
-              <input type="checkbox" id="Std(ms)" value="Std(ms)" v-model="checkedTags"><label for="Std(ms)">Std(ms)</label>
+              <input type="checkbox" id="99.9Line(ms)" value="99.9Line(ms)" v-model="checkedTags"><label
+              for="99.9Line(ms)">99.9Line(ms)</label>
+              <input type="checkbox" id="Std(ms)" value="Std(ms)" v-model="checkedTags"><label
+              for="Std(ms)">Std(ms)</label>
               <input type="checkbox" id="QPS" value="QPS" v-model="checkedTags"><label for="QPS">QPS</label>
-              <input type="checkbox" id="Percent%" value="Percent%" v-model="checkedTags"><label for="Percent%">Percent%</label>
+              <input type="checkbox" id="Percent%" value="Percent%" v-model="checkedTags"><label
+              for="Percent%">Percent%</label>
             </div>
           </div>
           <div class="row form-inline distance col-md-12 " v-if="visible">
@@ -88,7 +95,7 @@
               <label style="position: absolute; margin-top: 10px">Type:</label>
               <div style="margin-top: 10px;margin-left: 50px">
                 <template v-for="type in typeList">
-                  <input type="checkbox" :id={{type.id}} :value={{type.id}} v-model="checkedTypes"><label for={{type.id}}>{{type.id}}</label>
+                  <input type="checkbox" :id="type.id" :value="type.id" v-model="checkedTypes"><label :for="type.id">{{type.id}}</label>
                 </template>
               </div>
             </div>
@@ -98,8 +105,17 @@
               </button>
             </div>
           </div>
+          <!--tab表格-->
+          <div style="background-color: red">
+            <el-tabs type="border-card">
+              <el-tab-pane label="用户管理">用户管理</el-tab-pane>
+              <el-tab-pane label="配置管理">配置管理</el-tab-pane>
+              <el-tab-pane label="角色管理">角色管理</el-tab-pane>
+              <el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>
+            </el-tabs>
+          </div>
           <div class="foot">
-            <button type="button" class="btn btn-primary btn-sm ">保存</button>
+            <button type="button" class="btn btn-primary btn-sm " @click="submit">保存</button>
             <button type="button" class="btn btn-primary btn-sm ">取消</button>
           </div>
 
@@ -151,8 +167,9 @@
         this.$http({
           url: "http://10.8.85.36:8090/Cat_Api_Test/servlet/LoadCatJson",
           methods: "get",
-          data: this.appId,
+          data: {appId: this.appId},
         }).then(response => {
+
           this.typeList = response.body.report.machines.All.types;
           this.visible = true
         }, response => {
@@ -163,10 +180,29 @@
         this.$http({
           url: "http://10.8.85.36:8090/Cat_Api_Test/servlet/LoadCatJson",
           methods: "get",
-          data: this.appId,
+          data: {
+            appId: this.appId,
+            checkedTypes: this.checkedTypes
+          }
         }).then(response => {
+          debugger
           this.typeList = response.body.report.machines.All.types;
-          this.visible = true
+        }, response => {
+          debugger
+          // error callback
+        });
+      },
+      submit: function () {
+        this.$http({
+          url: "http://10.8.85.36:8090/Cat_Api_Test/servlet/CatJobServlet",
+          methods: "get",
+          data: {
+            appId: this.appId,
+            checkedTypes: this.checkedTypes
+          }
+        }).then(response => {
+          debugger
+          this.typeList = response.body.report.machines.All.types;
         }, response => {
           // error callback
         });
