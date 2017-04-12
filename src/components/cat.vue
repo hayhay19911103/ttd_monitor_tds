@@ -1,32 +1,34 @@
 <template>
   <div id="cat">
     <div class="main">
-      <div class="leftNav">
-        <ul>
-          <li>
-            <router-link to="/dataSource">数据源</router-link>
-            <ul>
-              <li>
-                <router-link to="/cat">CAT</router-link>
-              </li>
-              <li>
-                <router-link to="/dashboard">Dashboard</router-link>
-              </li>
-              <li>
-                <router-link to="/listPage">列表页</router-link>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <router-link to="/graphy">图表</router-link>
-          </li>
-          <li>
-            <router-link to="/board">看板</router-link>
-          </li>
-          <li>
-            <router-link to="/warnRule">告警规则</router-link>
-          </li>
-        </ul>
+      <div id="leftNav">
+        <el-menu default-active="1" class="el-menu-vertical-demo leftNav ">
+          <el-submenu index="1">
+            <template slot="title">
+              <router-link to="dataSource">数据源</router-link>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="1-1">
+                <router-link to="cat">CAT</router-link>
+              </el-menu-item>
+              <el-menu-item index="1-2">
+                <router-link to="dashboard">Dashboard</router-link>
+              </el-menu-item>
+              <el-menu-item index="1-2">
+                <router-link to="listPage">任务列表</router-link>
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-menu-item index="2">
+            <router-link to="graphy">图表</router-link>
+          </el-menu-item>
+          <el-menu-item index="3">
+            <router-link to="board">看板</router-link>
+          </el-menu-item>
+          <el-menu-item index="4">
+            <router-link to="warnRule">告警规则</router-link>
+          </el-menu-item>
+        </el-menu>
       </div>
       <div class="content">
         <form class="form">
@@ -47,8 +49,13 @@
               </select>
             </div>
             <div class="form-group col-md-3">
-              <label for="startTime">开始时间</label>
-              <input type="email" class="form-control input-sm" id="startTime" placeholder="默认从当前时间开始">
+              <label >开始时间</label>
+              <el-date-picker
+                v-model="startTime"
+                type="date"
+                placeholder="选择日期"
+                size="small">
+              </el-date-picker>
             </div>
           </div>
 
@@ -56,7 +63,7 @@
             <div class="form-group col-md-12">
               <label for="appId">APP &nbsp;&nbsp; ID</label>
               <input type="text" class="form-control input-sm" id="appId" placeholder="100000445" v-model="appId"
-                     @keyup.enter="showType">
+                     @keyup.enter="showResult">
             </div>
           </div>
 
@@ -102,11 +109,11 @@
             <div style="border: 1px solid grey;width:80% ;float:left;padding-bottom: 10px">
               <label style="position: absolute; margin-top: 10px">Type:</label>
               <div v-for="type in typeList" class="checkbox " style="margin-top: 10px;margin-left: 50px">
-                <label><input type="checkbox"> {{type.id}}</label>
+                <label><input type="checkbox" v-model="typeName"> {{type.id}}</label>
               </div>
             </div>
             <div>
-              <button type="button" class="btn btn-primary btn-sm " style="margin-left: 20px;margin-top: 80px">确认
+              <button type="button" class="btn btn-primary btn-sm " style="margin-left: 20px;margin-top: 80px" @click="showResult">确认
               </button>
             </div>
           </div>
@@ -129,6 +136,7 @@
     height: 20px;
     margin-right: 10px;
   }
+
   .foot {
     text-align: center;
   }
@@ -146,23 +154,26 @@
     data: function () {
       return {
         appId: "",
-        typeList: {},
-        visible:false
+        typeName:[],
+        typeList: {},//接收返回的type
+        visible: false,
+        startTime:"",
+
       }
     },
     methods: {
-      showType: function () {
+      showResult: function () {
         this.$http({
           url: "http://10.8.85.36:8090/Cat_Api_Test/servlet/LoadCatJson",
           methods: "get",
           data: this.appId,
         }).then(response => {
           this.typeList = response.body.report.machines.All.types;
-          this.visible=true
+          this.visible = true
         }, response => {
           // error callback
         });
-      }
+      },
     }
 
   }

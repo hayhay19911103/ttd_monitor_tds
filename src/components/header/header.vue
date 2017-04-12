@@ -24,7 +24,7 @@
 
 <script>
     export default {
-        name: 'hello',
+        name: 'header',
     }
 </script>
 
