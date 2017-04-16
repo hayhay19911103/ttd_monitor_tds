@@ -52,11 +52,11 @@
 
 
 <style>
-  .content {
-    position: absolute;
-    margin-top: 30px;
-    margin-left: 300px;
-  }
+  /*.content {*/
+    /*position: absolute;*/
+    /*margin-top: 30px;*/
+    /*margin-left: 300px;*/
+  /*}*/
 
   .dis {
     margin-right: 10px;

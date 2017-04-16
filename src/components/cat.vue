@@ -2,23 +2,23 @@
   <div id="cat">
     <div class="main">
       <div id="leftNav">
-        <el-menu default-active="1" class="el-menu-vertical-demo leftNav ">
-          <el-submenu index="1">
-            <template slot="title">
-              <router-link to="dataSource">数据源</router-link>
-            </template>
-            <el-menu-item-group>
-              <el-menu-item index="1-1">
-                <router-link to="cat">CAT</router-link>
-              </el-menu-item>
-              <el-menu-item index="1-2">
-                <router-link to="dashboard">Dashboard</router-link>
-              </el-menu-item>
-              <el-menu-item index="1-2">
-                <router-link to="listPage">任务列表</router-link>
-              </el-menu-item>
-            </el-menu-item-group>
-          </el-submenu>
+        <el-menu default-active="1" class="el-menu-vertical-demo leftNav">
+          <!--<el-submenu index="1">-->
+            <!--<template slot="title">-->
+              <!--<router-link to="dataSource">数据源</router-link>-->
+            <!--</template>-->
+            <!--<el-menu-item-group>-->
+              <!--<el-menu-item index="1-1">-->
+                <!--<router-link to="cat">CAT</router-link>-->
+              <!--</el-menu-item>-->
+              <!--<el-menu-item index="1-2">-->
+                <!--<router-link to="dashboard">Dashboard</router-link>-->
+              <!--</el-menu-item>-->
+              <!--<el-menu-item index="1-2">-->
+                <!--<router-link to="listPage">任务列表</router-link>-->
+              <!--</el-menu-item>-->
+            <!--</el-menu-item-group>-->
+          <!--</el-submenu>-->
           <el-menu-item index="2">
             <router-link to="graphy">图表</router-link>
           </el-menu-item>

@@ -10,7 +10,6 @@
     }
 </style>
 <script>
-
     export default{
        name:'board'
     }

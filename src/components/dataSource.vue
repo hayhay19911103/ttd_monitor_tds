@@ -2,32 +2,27 @@
   <div id="dataSource">
     <div class="main">
       <div id="leftNav">
-        <el-menu default-active="1" class="el-menu-vertical-demo leftNav">
-          <el-submenu index="1">
-            <template slot="title">
-              <router-link to="dataSource">数据源</router-link>
-            </template>
-            <el-menu-item-group>
-              <el-menu-item index="1-1">
-                <router-link to="cat">CAT</router-link>
-              </el-menu-item>
-              <el-menu-item index="1-2">
-                <router-link to="dashboard">Dashboard</router-link>
-              </el-menu-item>
-              <el-menu-item index="1-2">
-                <router-link to="listPage">任务列表</router-link>
-              </el-menu-item>
-            </el-menu-item-group>
-          </el-submenu>
-          <el-menu-item index="2">
-            <router-link to="graphy">图表</router-link>
-          </el-menu-item>
-          <el-menu-item index="3">
-            <router-link to="board">看板</router-link>
-          </el-menu-item>
-          <el-menu-item index="4">
-            <router-link to="warnRule">告警规则</router-link>
-          </el-menu-item>
+        <el-menu default-active="dataSource" class="el-menu-vertical-demo leftNav" :router="true"
+                 @open="handleOpen" @close="handleClose" >
+          <!--<el-submenu index="1">-->
+            <!--<template slot="title">导航一</template>-->
+            <!--<el-menu-item-group title="分组一">-->
+              <!--<el-menu-item index="1-1">选项1</el-menu-item>-->
+              <!--<el-menu-item index="1-2">选项2</el-menu-item>-->
+            <!--</el-menu-item-group>-->
+            <!--<el-menu-item-group title="分组2">-->
+              <!--<el-menu-item index="1-3">选项3</el-menu-item>-->
+            <!--</el-menu-item-group>-->
+            <!--<el-submenu index="1-4">-->
+              <!--<template slot="title">选项4</template>-->
+              <!--<el-menu-item index="1-4-1">选项1</el-menu-item>-->
+            <!--</el-submenu>-->
+          <!--</el-submenu>-->
+          <el-menu-item index="dataSource">数据源</el-menu-item>
+          <el-menu-item index="graphy">图表</el-menu-item>
+          <el-menu-item index="board">看板</el-menu-item>
+          <el-menu-item index="warnRule">告警规则</el-menu-item>
+
         </el-menu>
       </div>
       <div class="content">
@@ -35,18 +30,16 @@
           <h1>开始配置一个数据源任务</h1><br>
           <p>请选择监控数据来源</p>
         </div>
-        <div class="container">
-          <div class="col-md-12">
-            <div class="pic">
-              <div class="left">
-                <router-link to="/cat"><span>CAT</span></router-link>
-              </div>
-              <div class="right">
-                <router-link to="/dashboard"><span>Dashboard</span></router-link>
+            <div class="col-md-12">
+              <div class="pic">
+                <div class="left">
+                  <router-link to="/cat"><span>CAT</span></router-link>
+                </div>
+                <div class="right">
+                  <router-link to="/dashboard"><span>Dashboard</span></router-link>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -72,8 +65,9 @@
   }
 
   .pic {
-    width: 500px;
-    margin: 40px 580px 100px;
+    width:500px;
+    margin:0 auto;
+    text-align: center;
 
   }
 
@@ -89,9 +83,7 @@
   }
 
   .pic span {
-    position: relative;
-    top: 100px;
-    left: 70px;
+    line-height: 250px;
   }
 
   .pic .right {
@@ -107,7 +99,7 @@
 
   .leftNav {
     background: #e4e4e4;
-    width: 13%;
+    width: 150px;
     height: 730px;
     float: left;
   }
@@ -120,18 +112,26 @@
     margin: 0 auto;
   }
 
-  .leftNav a:link, hover, active, visited {
+  .leftNav a:link {
     text-decoration: none;
   }
 
   .content {
     float: left;
     width: 87%;
+    height:100%;
   }
 </style>
 <script>
   export default{
     name: 'dataSource',
-
+    methods: {
+      handleOpen(key, keyPath) {
+        console.log(key, keyPath);
+      },
+      handleClose(key, keyPath) {
+        console.log(key, keyPath);
+      }
+    }
   }
 </script>
