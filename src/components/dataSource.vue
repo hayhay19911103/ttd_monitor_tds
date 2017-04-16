@@ -35,12 +35,16 @@
           <h1>开始配置一个数据源任务</h1><br>
           <p>请选择监控数据来源</p>
         </div>
-        <div class="pic">
-          <div class="left">
-            <router-link to="/cat"><span>CAT</span></router-link>
-          </div>
-          <div class="right">
-            <router-link to="/dashboard"><span>Dashboard</span></router-link>
+        <div class="container">
+          <div class="col-md-12">
+            <div class="pic">
+              <div class="left">
+                <router-link to="/cat"><span>CAT</span></router-link>
+              </div>
+              <div class="right">
+                <router-link to="/dashboard"><span>Dashboard</span></router-link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -48,22 +52,25 @@
   </div>
 </template>
 <style>
-  .firstContent{
-    padding:60px;
+  .firstContent {
+    padding: 60px;
     text-align: center;
   }
-  .firstContent h1{
+
+  .firstContent h1 {
     font-family: 'Arial Negreta', 'Arial Normal', 'Arial';
     font-weight: 700;
     font-style: normal;
     font-size: 50px;
   }
-  .firstContent p{
+
+  .firstContent p {
     font-family: 'Arial Negreta', 'Arial Normal', 'Arial';
     font-weight: 700;
     font-style: normal;
     font-size: 30px;
   }
+
   .pic {
     width: 500px;
     margin: 40px 580px 100px;
@@ -105,7 +112,6 @@
     float: left;
   }
 
-
   .leftNav a {
     display: block;
     text-decoration: none;
@@ -113,7 +119,8 @@
     font-size: 20px;
     margin: 0 auto;
   }
-  .leftNav a:link,hover,active,visited{
+
+  .leftNav a:link, hover, active, visited {
     text-decoration: none;
   }
 
