@@ -33,30 +33,31 @@
       </div>
       <!--内容区域-->
       <div class="content">
-        <form class="form">
+        <form class="form" style="position:relative;top: 20px; left: 40px;">
           <div class="row form-inline distance">
             <div class="form-group col-md-3">
               <label for="taskName">任务名称</label>
               <input type="text" class="form-control input-sm" id="taskName" placeholder="简单的说明一下" v-model="taskName">
             </div>
             <div class="form-group col-md-3">
-              <label>间隔时间</label>
-              <select class=" input-sm" v-model="timeInterval">
-                <option value="1min" selected>1分钟</option>
-                <option value="10">10分钟</option>
-                <option value="60">1小时</option>
-                <option value="24*60">1天</option>
-                <option value="24*60*7">1周</option>
-              </select>
-            </div>
-            <div class="form-group col-md-3">
               <label>开始时间</label>
               <el-date-picker
                 v-model="startTime"
-                type="date"
+                type="datetime"
                 placeholder="选择日期"
-                size="small">
+                size="small"
+                :picker-options="pickerOptions0">
               </el-date-picker>
+            </div>
+            <div class="form-group col-md-3">
+              <label>间隔时间</label>
+              <select class=" input-sm" v-model="timeInterval">
+                <option value="1*60">1分钟</option>
+                <option value="10*60">10分钟</option>
+                <option value="60*60">1小时</option>
+                <option value="24*60*60 ">1天</option>
+                <option value="24*60*7*60">1周</option>
+              </select>
             </div>
           </div>
           <div class="row form-inline distance">
@@ -69,7 +70,7 @@
           <!--TAG区域-->
           <div class="row form-inline distance col-md-12">
             <label style="position:absolute;top: 20px;">TAG:</label>
-            <div class=" " style="margin-top: 20px;margin-left: 50px">
+            <div style="margin-top: 20px;margin-left: 50px">
               <input type="checkbox" id="Total" value="Total" v-model="checkedTags"> <label for="Total">Total</label>
               <input type="checkbox" id="Failure" value="Failure" v-model="checkedTags"> <label for="Failure">
               Failure</label>
@@ -92,26 +93,14 @@
           </div>
           <!--Type区域-->
           <div class="row form-inline distance col-md-12 " v-if="visible">
-            <div style="{border: 1px solid grey;width:80% ;float:left;padding-bottom: 10px}">
-              <label style="{position: absolute; margin-top: 10px}">Type:</label>
-              <div style="{margin-top: 10px;margin-left: 50px}">
-                <template v-for="type in typeList">
-                  <input type="checkbox" :id="type.id" :value="type.id" v-model="checkedTypes">
-                  <label :for="type.id">{{type.id}}</label>
-                </template>
-              </div>
+            <div style="border: 1px solid grey;width: 70%;float: left" >
+              <template v-for="type in typeList">
+                <label>Type:</label>
+                <input type="checkbox" :id="type.id" :value="type.id" v-model="checkedTypes"> <label :for="type.id">{{type.id}}</label>
+              </template>
             </div>
-            <div>4
-              <button type="button" class="btn btn-primary btn-sm " style="{margin-left: 20px;margin-top: 80px}"
-                      @click="showName">确认
-              </button>
-            </div>
+            <button type="button" class="btn btn-primary btn-sm " @click="showName">确定</button>
           </div>
-
-
-
-
-
 
           <div class="foot">
             <button type="button" class="btn btn-primary btn-sm " @click="submit">保存</button>
@@ -125,6 +114,17 @@
   </div>
 </template>
 <style>
+  .typeBox {
+    border: 1px solid grey;
+    width: 80%;
+    float: left;
+    padding-bottom: 10px
+  }
+
+  .typeLabel {
+    position: absolute;
+    margin-top: 10px
+  }
 
   .checkbox label {
     display: inline-block;
@@ -156,7 +156,13 @@
         checkedTags: [],//选中的tag
         checkedTypes: [],//选中的type
         typeList: {},//接收返回的type
-        visible: false
+        nameList:{},
+        visible: false,
+        pickerOptions0: {
+          disabledDate(time) {
+            return time.getTime() < Date.now() - 8.64e7 - 7 * 24 * 60 * 60 * 1000;
+          }
+        },
       }
     },
     methods: {
@@ -166,7 +172,6 @@
           methods: "get",
           data: {appId: this.appId},
         }).then(response => {
-
           this.typeList = response.body.report.machines.All.types;
           this.visible = true
         }, response => {

@@ -31,7 +31,7 @@
         </el-menu>
       </div>
       <div class="content">
-        <form>
+        <form class="form" style="position:relative;top: 20px; left: 40px;">
           <div class="row form-inline distance">
             <div class="form-group col-md-3">
               <label for="taskName">任务名称</label>

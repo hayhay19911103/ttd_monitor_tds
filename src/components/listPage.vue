@@ -31,7 +31,7 @@
         </el-menu>
       </div>
       <div class="content">
-          <form>
+          <form class="form" style="position:relative;top: 20px; left: 40px;">
             <div class="row form-inline distance" >
               <div class="form-group col-md-3" style="width: 20%">
                 <label for="taskId">任务ID</label>
@@ -59,7 +59,7 @@
             </div>
           </form>
 
-          <table class="table table-bordered table-hover table-responsive " style="margin-top: 50px;width: 90%;">
+          <table class="table table-bordered table-hover table-responsive " style="position:relative;left: 40px; top: 80px;right: 40px;">
             <thead>
             <tr role="row" class="row-header">
               <th>任务ID</th>
