@@ -17,6 +17,7 @@
     background-color: #336699;
     line-height: 80px;
     clear: both;
+
   }
 
   .footer p {

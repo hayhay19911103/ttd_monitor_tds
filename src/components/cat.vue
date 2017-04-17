@@ -1,35 +1,24 @@
 <template>
   <div id="cat">
     <div class="main">
+      <!--左侧导航栏-->
       <div id="leftNav">
-        <el-menu default-active="1" class="el-menu-vertical-demo leftNav">
-          <!--<el-submenu index="1">-->
-            <!--<template slot="title">-->
-              <!--<router-link to="dataSource">数据源</router-link>-->
-            <!--</template>-->
-            <!--<el-menu-item-group>-->
-              <!--<el-menu-item index="1-1">-->
-                <!--<router-link to="cat">CAT</router-link>-->
-              <!--</el-menu-item>-->
-              <!--<el-menu-item index="1-2">-->
-                <!--<router-link to="dashboard">Dashboard</router-link>-->
-              <!--</el-menu-item>-->
-              <!--<el-menu-item index="1-2">-->
-                <!--<router-link to="listPage">任务列表</router-link>-->
-              <!--</el-menu-item>-->
-            <!--</el-menu-item-group>-->
-          <!--</el-submenu>-->
-          <el-menu-item index="2">
-            <router-link to="graphy">图表</router-link>
-          </el-menu-item>
-          <el-menu-item index="3">
-            <router-link to="board">看板</router-link>
-          </el-menu-item>
-          <el-menu-item index="4">
-            <router-link to="warnRule">告警规则</router-link>
-          </el-menu-item>
+        <el-menu default-active="1" class="el-menu-vertical-demo leftNav" @open="handleOpen" @close="handleClose" router>
+          <el-submenu index="dataSource">
+            <template slot="title">数据源</template>
+            <el-menu-item-group title="">
+              <el-menu-item index="cat">CAT</el-menu-item>
+              <el-menu-item index="dashboard">Dashboard</el-menu-item>
+              <el-menu-item index="listPage">任务列表</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-menu-item index="graphy">图表</el-menu-item>
+          <el-menu-item index="board">看板</el-menu-item>
+          <el-menu-item index="warnRule">告警规则</el-menu-item>
+
         </el-menu>
       </div>
+      <!--内容区域-->
       <div class="content">
         <form class="form">
           <div class="row form-inline distance">
@@ -41,11 +30,10 @@
               <label>间隔时间</label>
               <select class=" input-sm" v-model="timeInterval">
                 <option value="1min" selected>1分钟</option>
-                <option value="5">5分钟</option>
                 <option value="10">10分钟</option>
-                <option value="20">20分钟</option>
                 <option value="60">1小时</option>
                 <option value="24*60">1天</option>
+                <option value="24*60*7">1周</option>
               </select>
             </div>
             <div class="form-group col-md-3">
@@ -66,7 +54,7 @@
                      @keyup.enter="showType">
             </div>
           </div>
-
+          <!--TAG区域-->
           <div class="row form-inline distance col-md-12">
             <label style="position:absolute;top: 20px;">TAG:</label>
             <div class=" " style="margin-top: 20px;margin-left: 50px">
@@ -90,30 +78,33 @@
               for="Percent%">Percent%</label>
             </div>
           </div>
+
+
+
+
+          Type区域
           <div class="row form-inline distance col-md-12 " v-if="visible">
-            <div style="border: 1px solid grey;width:80% ;float:left;padding-bottom: 10px">
-              <label style="position: absolute; margin-top: 10px">Type:</label>
-              <div style="margin-top: 10px;margin-left: 50px">
+            <div style="{border: 1px solid grey;width:80% ;float:left;padding-bottom: 10px}">
+              <label style="{position: absolute; margin-top: 10px}">Type:</label>
+              <div style="{margin-top: 10px;margin-left: 50px}">
                 <template v-for="type in typeList">
-                  <input type="checkbox" :id="type.id" :value="type.id" v-model="checkedTypes"><label :for="type.id">{{type.id}}</label>
+                  <input type="checkbox" :id="type.id" :value="type.id" v-model="checkedTypes">
+                  <label :for="type.id">{{type.id}}</label>
                 </template>
               </div>
             </div>
-            <div>
-              <button type="button" class="btn btn-primary btn-sm " style="margin-left: 20px;margin-top: 80px"
+            <div>4
+              <button type="button" class="btn btn-primary btn-sm " style="{margin-left: 20px;margin-top: 80px}"
                       @click="showName">确认
               </button>
             </div>
           </div>
-          <!--tab表格-->
-          <div style="background-color: red">
-            <el-tabs type="border-card">
-              <el-tab-pane label="用户管理">用户管理</el-tab-pane>
-              <el-tab-pane label="配置管理">配置管理</el-tab-pane>
-              <el-tab-pane label="角色管理">角色管理</el-tab-pane>
-              <el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>
-            </el-tabs>
-          </div>
+
+
+
+
+
+
           <div class="foot">
             <button type="button" class="btn btn-primary btn-sm " @click="submit">保存</button>
             <button type="button" class="btn btn-primary btn-sm ">取消</button>
@@ -157,9 +148,7 @@
         checkedTags: [],//选中的tag
         checkedTypes: [],//选中的type
         typeList: {},//接收返回的type
-        visible: false,
-
-
+        visible: false
       }
     },
     methods: {
@@ -173,7 +162,7 @@
           this.typeList = response.body.report.machines.All.types;
           this.visible = true
         }, response => {
-          // error callback
+          this.visible = false;
         });
       },
       showName: function () {
