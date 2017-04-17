@@ -36,8 +36,8 @@
         <form class="form"  style="position:relative;top: 20px; left: 40px;" >
           <div class="row form-inline distance">
             <div class="form-group col-md-3">
-              <label for="taskName">任务名称</label>
-              <input type="text" class="form-control input-sm" id="taskName" placeholder="简单的说明一下" v-model="taskName" v-validate:taskName="['required']">
+              <label for="taskName">任务名称*</label>
+              <input type="text" class="form-control input-sm" id="taskName" placeholder="简单的说明一下" v-model="taskName">
             </div>
             <div class="form-group col-md-3">
               <label>开始时间</label>
@@ -52,7 +52,7 @@
             <div class="form-group col-md-3">
               <label>间隔时间</label>
               <select class=" input-sm" v-model="timeInterval">
-                <option value="1*60">1分钟</option>
+                <option value="1*60" selected>1分钟</option>
                 <option value="10*60">10分钟</option>
                 <option value="60*60">1小时</option>
                 <option value="24*60*60 ">1天</option>
@@ -62,7 +62,7 @@
           </div>
           <div class="row form-inline distance">
             <div class="form-group col-md-12">
-              <label for="appId">APP &nbsp;&nbsp; ID</label>
+              <label for="appId">APP &nbsp;&nbsp; ID*</label>
               <input type="text" class="form-control input-sm" id="appId" placeholder="100000445" v-model="appId"
                      @keyup.enter="showType">
             </div>
@@ -103,6 +103,9 @@
             </div>
             <button type="button" class="btn btn-primary btn-sm " @click="showName" style="margin-left: 20px;margin-top: 20px;">确定</button>
           </div>
+          <!--tab表格-->
+
+
         <!--foot-->
           <div class="foot">
             <button type="button" class="btn btn-primary btn-sm " @click="submit">保存</button>
@@ -176,6 +179,7 @@
             checkedTypes: this.checkedTypes
           }
         }).then(response => {
+          console.log(this.checkedTypes)
           debugger
           this.typeList = response.body.report.machines.All.types;
         }, response => {
@@ -183,21 +187,7 @@
           // error callback
         });
       },
-      submit: function () {
-        this.$http({
-          url: "http://10.8.85.36:8090/Cat_Api_Test/servlet/CatJobServlet",
-          methods: "get",
-          data: {
-            appId: this.appId,
-            checkedTypes: this.checkedTypes
-          }
-        }).then(response => {
-          debugger
-          this.typeList = response.body.report.machines.All.types;
-        }, response => {
-          // error callback
-        });
-      }
+
     }
 
   }
