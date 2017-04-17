@@ -33,11 +33,11 @@
       </div>
       <!--内容区域-->
       <div class="content">
-        <form class="form" style="position:relative;top: 20px; left: 40px;">
+        <form class="form"  style="position:relative;top: 20px; left: 40px;" >
           <div class="row form-inline distance">
             <div class="form-group col-md-3">
               <label for="taskName">任务名称</label>
-              <input type="text" class="form-control input-sm" id="taskName" placeholder="简单的说明一下" v-model="taskName">
+              <input type="text" class="form-control input-sm" id="taskName" placeholder="简单的说明一下" v-model="taskName" v-validate:taskName="['required']">
             </div>
             <div class="form-group col-md-3">
               <label>开始时间</label>
@@ -70,7 +70,7 @@
           <!--TAG区域-->
           <div class="row form-inline distance col-md-12">
             <label style="position:absolute;top: 20px;">TAG:</label>
-            <div style="margin-top: 20px;margin-left: 50px">
+            <div class="checkbox" style="margin-top: 20px;margin-left: 50px">
               <input type="checkbox" id="Total" value="Total" v-model="checkedTags"> <label for="Total">Total</label>
               <input type="checkbox" id="Failure" value="Failure" v-model="checkedTags"> <label for="Failure">
               Failure</label>
@@ -93,43 +93,32 @@
           </div>
           <!--Type区域-->
           <div class="row form-inline distance col-md-12 " v-if="visible">
-            <div style="border: 1px solid grey;width: 70%;float: left" >
+            <div style="border: 1px solid grey;width: 80%;float: left;">
+              <label style="position:absolute;top: 0px;">Type:</label>
+              <div class="checkbox"  style="margin-top: 0px;margin-left: 50px">
               <template v-for="type in typeList">
-                <label>Type:</label>
                 <input type="checkbox" :id="type.id" :value="type.id" v-model="checkedTypes"> <label :for="type.id">{{type.id}}</label>
               </template>
+              </div>
             </div>
-            <button type="button" class="btn btn-primary btn-sm " @click="showName">确定</button>
+            <button type="button" class="btn btn-primary btn-sm " @click="showName" style="margin-left: 20px;margin-top: 20px;">确定</button>
           </div>
-
+        <!--foot-->
           <div class="foot">
             <button type="button" class="btn btn-primary btn-sm " @click="submit">保存</button>
             <button type="button" class="btn btn-primary btn-sm ">取消</button>
           </div>
-
         </form>
-
       </div>
     </div>
   </div>
 </template>
 <style>
-  .typeBox {
-    border: 1px solid grey;
-    width: 80%;
-    float: left;
-    padding-bottom: 10px
-  }
-
-  .typeLabel {
-    position: absolute;
-    margin-top: 10px
-  }
 
   .checkbox label {
     display: inline-block;
-    width: 210px;
-    height: 20px;
+    width: 180px;
+    height: 25px;
     margin-right: 10px;
   }
 

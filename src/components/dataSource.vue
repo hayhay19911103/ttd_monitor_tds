@@ -105,7 +105,7 @@
   .leftNav {
     background: #e4e4e4;
     width: 13%;
-    height: 730px;
+    height: 780px;
     float: left;
   }
 
