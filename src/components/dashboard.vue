@@ -2,19 +2,32 @@
   <div id="dashboard">
     <div class="main">
       <div id="leftNav">
-        <el-menu default-active="1" class="el-menu-vertical-demo leftNav" @open="handleOpen" @close="handleClose" router>
-          <el-submenu index="dataSource">
-            <template slot="title">数据源</template>
-            <el-menu-item-group title="">
-              <el-menu-item index="cat">CAT</el-menu-item>
-              <el-menu-item index="dashboard">Dashboard</el-menu-item>
-              <el-menu-item index="listPage">任务列表</el-menu-item>
+        <el-menu default-active="1" class="el-menu-vertical-demo leftNav">
+          <el-submenu index="1">
+            <template slot="title">
+              <router-link to="dataSource">数据源</router-link>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="1-1">
+                <router-link to="cat">CAT</router-link>
+              </el-menu-item>
+              <el-menu-item index="1-2">
+                <router-link to="dashboard">Dashboard</router-link>
+              </el-menu-item>
+              <el-menu-item index="1-2">
+                <router-link to="listPage">任务列表</router-link>
+              </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-          <el-menu-item index="graphy">图表</el-menu-item>
-          <el-menu-item index="board">看板</el-menu-item>
-          <el-menu-item index="warnRule">告警规则</el-menu-item>
-
+          <el-menu-item index="2">
+            <router-link to="graphy">图表</router-link>
+          </el-menu-item>
+          <el-menu-item index="3">
+            <router-link to="board">看板</router-link>
+          </el-menu-item>
+          <el-menu-item index="4">
+            <router-link to="warnRule">告警规则</router-link>
+          </el-menu-item>
         </el-menu>
       </div>
       <div class="content">

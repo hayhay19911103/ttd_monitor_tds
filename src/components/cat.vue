@@ -3,19 +3,32 @@
     <div class="main">
       <!--左侧导航栏-->
       <div id="leftNav">
-        <el-menu default-active="1" class="el-menu-vertical-demo leftNav" @open="handleOpen" @close="handleClose" router>
-          <el-submenu index="dataSource">
-            <template slot="title">数据源</template>
-            <el-menu-item-group title="">
-              <el-menu-item index="cat">CAT</el-menu-item>
-              <el-menu-item index="dashboard">Dashboard</el-menu-item>
-              <el-menu-item index="listPage">任务列表</el-menu-item>
+        <el-menu default-active="1" class="el-menu-vertical-demo leftNav">
+          <el-submenu index="1">
+            <template slot="title">
+              <router-link to="dataSource">数据源</router-link>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="1-1">
+                <router-link to="cat">CAT</router-link>
+              </el-menu-item>
+              <el-menu-item index="1-2">
+                <router-link to="dashboard">Dashboard</router-link>
+              </el-menu-item>
+              <el-menu-item index="1-2">
+                <router-link to="listPage">任务列表</router-link>
+              </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-          <el-menu-item index="graphy">图表</el-menu-item>
-          <el-menu-item index="board">看板</el-menu-item>
-          <el-menu-item index="warnRule">告警规则</el-menu-item>
-
+          <el-menu-item index="2">
+            <router-link to="graphy">图表</router-link>
+          </el-menu-item>
+          <el-menu-item index="3">
+            <router-link to="board">看板</router-link>
+          </el-menu-item>
+          <el-menu-item index="4">
+            <router-link to="warnRule">告警规则</router-link>
+          </el-menu-item>
         </el-menu>
       </div>
       <!--内容区域-->
@@ -46,7 +59,6 @@
               </el-date-picker>
             </div>
           </div>
-
           <div class="row form-inline distance">
             <div class="form-group col-md-12">
               <label for="appId">APP &nbsp;&nbsp; ID</label>
@@ -78,11 +90,7 @@
               for="Percent%">Percent%</label>
             </div>
           </div>
-
-
-
-
-          Type区域
+          <!--Type区域-->
           <div class="row form-inline distance col-md-12 " v-if="visible">
             <div style="{border: 1px solid grey;width:80% ;float:left;padding-bottom: 10px}">
               <label style="{position: absolute; margin-top: 10px}">Type:</label>
