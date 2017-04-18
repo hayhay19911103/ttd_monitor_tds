@@ -13,10 +13,13 @@
 
 <style>
   .footer {
+    position: absolute;
+    bottom: 0;
     height: 80px;
+    width:100%;
     background-color: #336699;
     line-height: 80px;
-    clear: both;
+    /*clear: both;*/
 
   }
 

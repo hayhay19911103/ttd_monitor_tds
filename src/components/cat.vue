@@ -2,53 +2,25 @@
   <div id="cat">
     <div class="main">
       <!--左侧导航栏-->
-      <div id="leftNav">
-        <el-menu default-active="1" class="el-menu-vertical-demo leftNav">
-          <el-submenu index="1">
-            <template slot="title">
-              <router-link to="dataSource">数据源</router-link>
-            </template>
-            <el-menu-item-group>
-              <el-menu-item index="1-1">
-                <router-link to="cat">CAT</router-link>
-              </el-menu-item>
-              <el-menu-item index="1-2">
-                <router-link to="dashboard">Dashboard</router-link>
-              </el-menu-item>
-              <el-menu-item index="1-2">
-                <router-link to="listPage">任务列表</router-link>
-              </el-menu-item>
-            </el-menu-item-group>
-          </el-submenu>
-          <el-menu-item index="2">
-            <router-link to="graphy">图表</router-link>
-          </el-menu-item>
-          <el-menu-item index="3">
-            <router-link to="board">看板</router-link>
-          </el-menu-item>
-          <el-menu-item index="4">
-            <router-link to="warnRule">告警规则</router-link>
-          </el-menu-item>
-        </el-menu>
-      </div>
+     <v-navList></v-navList>
       <!--内容区域-->
       <div class="content">
-        <form class="form"  style="position:relative;top: 20px; left: 40px;" >
+        <form class="form" style="position:relative;top: 20px; left: 40px;">
           <div class="row form-inline distance">
             <div class="form-group col-md-3">
-              <label for="taskName">任务名称*</label>
-              <input type="text" class="form-control input-sm" id="taskName" placeholder="简单的说明一下" v-model="taskName">
+              <label for="taskName">任务名称</label>
+              <input type="text"  class="form-control input-sm" id="taskName"  placeholder="简单的说明一下" v-model="taskName">
             </div>
-            <div class="form-group col-md-3">
-              <label>开始时间</label>
-              <el-date-picker
-                v-model="startTime"
-                type="datetime"
-                placeholder="选择日期"
-                size="small"
-                :picker-options="pickerOptions0">
-              </el-date-picker>
-            </div>
+            <!--<div class="form-group col-md-3">-->
+              <!--<label>开始时间</label>-->
+              <!--<el-date-picker-->
+                <!--v-model="startTime"-->
+                <!--type="datetime"-->
+                <!--placeholder="选择日期"-->
+                <!--size="small"-->
+                <!--:picker-options="pickerOptions0">-->
+              <!--</el-date-picker>-->
+            <!--</div>-->
             <div class="form-group col-md-3">
               <label>间隔时间</label>
               <select class=" input-sm" v-model="timeInterval">
@@ -62,7 +34,7 @@
           </div>
           <div class="row form-inline distance">
             <div class="form-group col-md-12">
-              <label for="appId">APP &nbsp;&nbsp; ID*</label>
+              <label for="appId">APP &nbsp;&nbsp; ID</label>
               <input type="text" class="form-control input-sm" id="appId" placeholder="100000445" v-model="appId"
                      @keyup.enter="showType">
             </div>
@@ -95,20 +67,22 @@
           <div class="row form-inline distance col-md-12 " v-if="visible">
             <div style="border: 1px solid grey;width: 80%;float: left;">
               <label style="position:absolute;top: 0px;">Type:</label>
-              <div class="checkbox"  style="margin-top: 0px;margin-left: 50px">
-              <template v-for="type in typeList">
-                <input type="checkbox" :id="type.id" :value="type.id" v-model="checkedTypes"> <label :for="type.id">{{type.id}}</label>
-              </template>
+              <div class="checkbox" style="margin-top: 0px;margin-left: 50px">
+                <template v-for="type in typeList">
+                  <input type="checkbox" :id="type.id" :value="type.id" v-model="checkedTypes"> <label :for="type.id">{{type.id}}</label>
+                </template>
               </div>
             </div>
-            <button type="button" class="btn btn-primary btn-sm " @click="showName" style="margin-left: 20px;margin-top: 20px;">确定</button>
+            <button type="button" class="btn btn-primary btn-sm " @click="showName"
+                    style="margin-left: 20px;margin-top: 20px;">确定
+            </button>
           </div>
           <!--tab表格-->
 
 
-        <!--foot-->
+          <!--foot-->
           <div class="foot">
-            <button type="button" class="btn btn-primary btn-sm " @click="submit">保存</button>
+            <button type="button" class="btn btn-primary btn-sm " >保存</button>
             <button type="button" class="btn btn-primary btn-sm ">取消</button>
           </div>
         </form>
@@ -137,18 +111,25 @@
 
 </style>
 <script>
+  import navList from './sidebar/navList.vue'
   export default{
     name: 'cat',
+    components:{
+      'v-navList':navList,
+
+    },
     data: function () {
       return {
         taskName: "",
         timeInterval: "",
         startTime: "",
         appId: "",
+        jobId:"",//修改的时候需要加上
         checkedTags: [],//选中的tag
         checkedTypes: [],//选中的type
         typeList: {},//接收返回的type
-        nameList:{},
+        nameList: {},
+        checkedNames:"",//选中的name
         visible: false,
         pickerOptions0: {
           disabledDate(time) {
@@ -156,6 +137,9 @@
           }
         },
       }
+    },
+    ready:function () {
+      console.log(2,validation);
     },
     methods: {
       showType: function () {

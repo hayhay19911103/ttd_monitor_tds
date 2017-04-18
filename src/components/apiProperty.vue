@@ -1,15 +1,6 @@
 <template>
   <div class="main">
-    <div class="leftNav">
-      <ul class="nav nav-pills nav-stacked">
-        <router-link to="apiProperty">
-          <span>接口性能大盘</span>
-        </router-link>
-        <router-link to="pageProperty">
-          <span>页面性能大盘</span>
-        </router-link>
-      </ul>
-    </div>
+    <v-navListApi></v-navListApi>
     <div class="content">
       <div class="form-group">
         <label style="float:left;margin-top: 5px">一级类目:</label>
@@ -45,8 +36,12 @@
 </template>
 
 <script>
+  import navListApi from './sidebar/navListApi.vue'
   export default {
     name: 'hello',
+    components:{
+      'v-navListApi':navListApi
+    },
   }
 </script>
 

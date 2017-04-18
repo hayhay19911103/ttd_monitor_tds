@@ -1,45 +1,17 @@
 <template>
   <div id="dashboard">
     <div class="main">
-      <div id="leftNav">
-        <el-menu default-active="1" class="el-menu-vertical-demo leftNav">
-          <el-submenu index="1">
-            <template slot="title">
-              <router-link to="dataSource">数据源</router-link>
-            </template>
-            <el-menu-item-group>
-              <el-menu-item index="1-1">
-                <router-link to="cat">CAT</router-link>
-              </el-menu-item>
-              <el-menu-item index="1-2">
-                <router-link to="dashboard">Dashboard</router-link>
-              </el-menu-item>
-              <el-menu-item index="1-2">
-                <router-link to="listPage">任务列表</router-link>
-              </el-menu-item>
-            </el-menu-item-group>
-          </el-submenu>
-          <el-menu-item index="2">
-            <router-link to="graphy">图表</router-link>
-          </el-menu-item>
-          <el-menu-item index="3">
-            <router-link to="board">看板</router-link>
-          </el-menu-item>
-          <el-menu-item index="4">
-            <router-link to="warnRule">告警规则</router-link>
-          </el-menu-item>
-        </el-menu>
-      </div>
+      <v-navList></v-navList>
       <div class="content">
         <form class="form" style="position:relative;top: 20px; left: 40px;">
           <div class="row form-inline distance">
             <div class="form-group col-md-3">
               <label for="taskName">任务名称</label>
-              <input type="text" class="form-control input-sm" id="taskName" placeholder="简单的说明一下">
+              <input type="text" class="form-control input-sm" id="taskName" placeholder="简单的说明一下" v-model="taskName">
             </div>
             <div class="form-group col-md-3">
               <label>间隔时间</label>
-              <select class=" input-sm">
+              <select class=" input-sm" v-model="timeInterval">
                 <option selected>1分钟</option>
                 <option>5分钟</option>
                 <option>10分钟</option>
@@ -48,19 +20,12 @@
                 <option>1天</option>
               </select>
             </div>
-            <div class="form-group col-md-3">
-              <label >开始时间</label>
-              <el-date-picker
-                v-model="startTime"
-                type="date"
-                placeholder="选择日期"
-                size="small">
-              </el-date-picker>            </div>
+
           </div>
           <div class="row form-inline distance">
             <div class="form-group col-md-3 ">
               <label>环境</label>
-              <select class=" input-sm">
+              <select class=" input-sm" v-model="environment">
                 <option selected>PROD</option>
                 <option>FWS</option>
                 <option>UAT</option>
@@ -69,7 +34,7 @@
             </div>
             <div class="form-group col-md-3 ">
               <label>聚合方式</label>
-              <select class=" input-sm">
+              <select class=" input-sm" v-model="gatherMethod">
                 <option selected>SUM</option>
                 <option>AVG</option>
                 <option>COUNT</option>
@@ -81,7 +46,7 @@
           <div class="row distance">
             <div class="form-group col-md-3">
               <label>Metric Name：</label>
-              <select class=" input-sm">
+              <select class=" input-sm" v-model="metricName">
                 <option selected>fx.ubt.pv.count &nbsp;页面pv</option>
                 <option>fx.ubt.mobile.pv.count&nbsp;页面pv</option>
                 <option>fx.ubt.jserror.count&nbsp;页面jserror</option>
@@ -98,15 +63,13 @@
           <div class="row form-inline">
             <div class="form-group col-md-9">
               <input type="text" class="form-control input-sm col-md-6" style="width: 810px" id="tag"
-                     placeholder="appid=1000000444">
-              <button type="button" class="btn btn-primary btn-sm " style="margin-left: 60px">测试</button>
-
+                     placeholder="appid=1000000444" v-model="tag">
             </div>
           </div>
           <div class="row distance">
             <div class="form-group col-md-6">
               <label for="groupby">Group By：</label>
-              <input type="text" class="form-control input-sm" id="groupby" placeholder="appid;name">
+              <input type="text" class="form-control input-sm" id="groupby" placeholder="appid;name" v-model="groupBy">
             </div>
           </div>
           <div class="footDashboard" style=" margin-top:80px;">
@@ -135,13 +98,21 @@
 
 </style>
 <script>
-
+import navList from './sidebar/navList.vue'
   export default{
     name: 'dashboard',
+    components:{
+      'v-navList':navList
+    },
     data:function () {
       return {
-        startTime:""
-
+        taskName:"",
+        timeInterval:"",
+        environment:"",
+        gatherMethod:"",
+        metricName:"",
+        tag:"",//输入的tag
+        groupBy:""//输入的group by
       }
     }
   }
