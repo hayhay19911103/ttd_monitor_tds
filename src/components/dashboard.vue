@@ -12,12 +12,11 @@
             <div class="form-group col-md-3">
               <label>间隔时间</label>
               <select class=" input-sm" v-model="timeInterval">
-                <option selected>1分钟</option>
-                <option>5分钟</option>
-                <option>10分钟</option>
-                <option>20分钟</option>
-                <option>1小时</option>
-                <option>1天</option>
+                <option value="1*60" selected>1分钟</option>
+                <option value="10*60">10分钟</option>
+                <option value="60*60">1小时</option>
+                <option value="24*60*60 ">1天</option>
+                <option value="24*60*7*60">1周</option>
               </select>
             </div>
 
@@ -26,20 +25,20 @@
             <div class="form-group col-md-3 ">
               <label>环境</label>
               <select class=" input-sm" v-model="environment">
-                <option selected>PROD</option>
-                <option>FWS</option>
-                <option>UAT</option>
-                <option>LPT</option>
+                <option value="PROD">PROD</option>
+                <option value="FWS">FWS</option>
+                <option value="UAT">UAT</option>
+                <option value="LPT">LPT</option>
               </select>
             </div>
             <div class="form-group col-md-3 ">
               <label>聚合方式</label>
               <select class=" input-sm" v-model="gatherMethod">
-                <option selected>SUM</option>
-                <option>AVG</option>
-                <option>COUNT</option>
-                <option>MAX</option>
-                <option>MIN</option>
+                <option value="SUM">SUM</option>
+                <option value="AVG">AVG</option>
+                <option value="COUNT">COUNT</option>
+                <option value="MAX">MAX</option>
+                <option value="MIN">MIN</option>
               </select>
             </div>
           </div>
@@ -47,7 +46,7 @@
             <div class="form-group col-md-3">
               <label>Metric Name：</label>
               <select class=" input-sm" v-model="metricName">
-                <option selected>fx.ubt.pv.count &nbsp;页面pv</option>
+                <option >fx.ubt.pv.count &nbsp;页面pv</option>
                 <option>fx.ubt.mobile.pv.count&nbsp;页面pv</option>
                 <option>fx.ubt.jserror.count&nbsp;页面jserror</option>
                 <option>fx.ubt.perf.domready&nbsp;页面domready</option>
@@ -107,9 +106,9 @@ import navList from './sidebar/navList.vue'
     data:function () {
       return {
         taskName:"",
-        timeInterval:"",
-        environment:"",
-        gatherMethod:"",
+        timeInterval:"1*60",
+        environment:"PROD",
+        gatherMethod:"SUM",
         metricName:"",
         tag:"",//输入的tag
         groupBy:""//输入的group by

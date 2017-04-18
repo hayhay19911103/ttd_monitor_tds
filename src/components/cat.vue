@@ -36,7 +36,7 @@
             <div class="form-group col-md-12">
               <label for="appId">APP &nbsp;&nbsp; ID</label>
               <input type="text" class="form-control input-sm" id="appId" placeholder="100000445" v-model="appId"
-                     @keyup.enter="showType">
+                     @keyup="showType">
             </div>
           </div>
           <!--TAG区域-->
@@ -121,7 +121,7 @@
     data: function () {
       return {
         taskName: "",
-        timeInterval: "",
+        timeInterval: "1*60",
         startTime: "",
         appId: "",
         jobId:"",//修改的时候需要加上

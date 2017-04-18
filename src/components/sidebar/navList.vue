@@ -1,6 +1,6 @@
 <template>
-  <div id="leftNav">
-    <el-menu default-active="1" class="el-menu-vertical-demo leftNav" v-bind:style="{ height: screenHeight +'px'}" :default-openeds=openeds>
+  <div id="leftNav" >
+    <el-menu default-active="1" class="el-menu-vertical-demo leftNav " v-bind:style="{ height: screenHeight +'px'}" :default-openeds=openeds>
       <el-submenu index="1">
         <template slot="title">
           <router-link to="dataSource">数据源</router-link>
