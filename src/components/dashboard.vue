@@ -42,18 +42,20 @@
               </select>
             </div>
           </div>
+          <!--联想功能-->
           <div class="row distance">
             <div class="form-group col-md-3">
-              <label>Metric Name：</label>
-              <select class=" input-sm" v-model="metricName">
-                <option >fx.ubt.pv.count &nbsp;页面pv</option>
-                <option>fx.ubt.mobile.pv.count&nbsp;页面pv</option>
-                <option>fx.ubt.jserror.count&nbsp;页面jserror</option>
-                <option>fx.ubt.perf.domready&nbsp;页面domready</option>
-                <option>js.lizard.ajaxready&nbsp;页面ajaxready</option>
-                <option>thingstodo.framework.servicestack.latency&nbsp;接口性能</option>
-                <option>thingstodo.framework.servicestack.count&nbsp;访问量</option>
-              </select>
+              <label for="metricName">Metric Name：</label>
+              <input type="text" class="form-control input-sm" id="metricName" placeholder="简单的说明一下" v-model="metricName">
+              <!--<select class=" input-sm" v-model="metricName">-->
+                <!--<option >fx.ubt.pv.count &nbsp;页面pv</option>-->
+                <!--<option>fx.ubt.mobile.pv.count&nbsp;页面pv</option>-->
+                <!--<option>fx.ubt.jserror.count&nbsp;页面jserror</option>-->
+                <!--<option>fx.ubt.perf.domready&nbsp;页面domready</option>-->
+                <!--<option>js.lizard.ajaxready&nbsp;页面ajaxready</option>-->
+                <!--<option>thingstodo.framework.servicestack.latency&nbsp;接口性能</option>-->
+                <!--<option>thingstodo.framework.servicestack.count&nbsp;访问量</option>-->
+              <!--</select>-->
             </div>
           </div>
 

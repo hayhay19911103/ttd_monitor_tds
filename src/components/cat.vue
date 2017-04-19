@@ -68,8 +68,9 @@
             <div style="border: 1px solid grey;width: 80%;float: left;">
               <label style="position:absolute;top: 0px;">Type:</label>
               <div class="checkbox" style="margin-top: 0px;margin-left: 50px">
-                <template v-for="type in typeList">
-                  <input type="checkbox" :id="type.id" :value="type.id" v-model="checkedTypes"> <label :for="type.id">{{type.id}}</label>
+                <template v-for="type in typeList" v-if="type.id!=System||type.id!=all">
+                  <input type="checkbox" :id="type.id" :value="type.id" v-model="checkedTypes">
+                  <label :for="type.id">{{type.id}}</label>
                 </template>
               </div>
             </div>
