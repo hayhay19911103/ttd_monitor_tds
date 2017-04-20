@@ -141,7 +141,7 @@
         checkedTags: [],//选中的tag
         checkedTypes: [],//选中的type
         typeList: {},//接收返回的type
-        nameList: {},
+        nameList: {},//接收返回的name
         checkedNames: "",//选中的name
         visible: false,
         searchList: [],//联想功能的数据
@@ -174,18 +174,26 @@
     },
     methods: {
       showType: function () {
-        this.$http.get(
-          'http://10.8.85.36:8090/Cat_Api_Test/servlet/LoadCatJson',
-          {appId: this.appId}
-          ).then(response => {
-          this.typeList = response.body.report.machines.All.types;
-          this.visible = true
-        }, response => {
-          this.visible = false;
-        });
+        $.ajax({
+          type:"get",
+          url:"http://10.8.85.36:8090/CatAPI/GetCatType",
+          data:{appid:this.appId},
+          success:function (data) {
+            debugger
+            this.typeList=data
+          }
+        })
       },
       showName: function () {
-
+        $.ajax({
+          type:"get",
+          url:"http://10.8.85.36:8090/CatAPI/GetCatType",
+          data:{appid:this.appId,checkedTypes:this.checkedTypes},
+          success:function (data) {
+            debugger
+            this.nameList=data
+          }
+        })
       },
       submit: function () {
         if (this.taskName.length === 0) {
