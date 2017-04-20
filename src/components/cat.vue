@@ -37,13 +37,13 @@
             <div class="form-group col-md-12">
               <label for="appId">APP &nbsp;&nbsp; ID</label>
               <input type="text" class="form-control input-sm" id="appId" placeholder="100000445" v-model="appId"
-                     @keyup.enter="showType"  >
+                     @keyup.enter="showType">
               <div class="search-select">
-              <ul>
-                  <li v-for="(item,index) in searchList"  :key="item.label">
+                <ul>
+                  <li v-for="(item,index) in searchList" :key="item.label">
                     {{item.label}}
                   </li>
-              </ul>
+                </ul>
               </div>
               <label v-if='appIdTip' class="validate" style="color: red;font-size: 8px">*不能为空</label>
             </div>
@@ -86,7 +86,8 @@
               </div>
             </div>
             <label v-if='checkedTagsTip' class="validate" style="color: red;font-size: 8px">*不能为空</label>
-            <button type="button" class="btn btn-primary btn-sm " @click="showName" style="margin-left: 20px;margin-top: 20px;">确定
+            <button type="button" class="btn btn-primary btn-sm " @click="showName"
+                    style="margin-left: 20px;margin-top: 20px;">确定
             </button>
           </div>
           <!--tab表格区-->
@@ -143,7 +144,7 @@
         nameList: {},
         checkedNames: "",//选中的name
         visible: false,
-        searchList:[],//联想功能的数据
+        searchList: [],//联想功能的数据
 
         taskNameTip: false,
         checkedTagsTip: false,
@@ -175,30 +176,16 @@
       showType: function () {
         this.$http.get(
           'http://10.8.85.36:8090/Cat_Api_Test/servlet/LoadCatJson',
-          {appId: this.appId},
-        ).then((response) => {
+          {appId: this.appId}
+          ).then(response => {
           this.typeList = response.body.report.machines.All.types;
           this.visible = true
-        }).catch(function(response) {
+        }, response => {
           this.visible = false;
         });
       },
       showName: function () {
-        this.$http({
-          url: "http://10.8.85.36:8090/Cat_Api_Test/servlet/LoadCatJson",
-          methods: "get",
-          data: {
-            appId: this.appId,
-            checkedTypes: this.checkedTypes
-          }
-        }).then(response => {
-          console.log(this.checkedTypes)
-          debugger
-          this.typeList = response.body.report.machines.All.types;
-        }, response => {
-          debugger
-          // error callback
-        });
+
       },
       submit: function () {
         if (this.taskName.length === 0) {
@@ -214,16 +201,8 @@
           this.checkedTypesTip = true;
         }
         //当判断元素不为空时，提交请求
-          this.$http({
-            url: "http://cat.ctripcorp.com/cat/r/dataApi?key=suggestion&forceDownload=json&page=TRANSACTION&date=2017041915&op=view",
-            methods: "get",
-            data:{},
-          }).then(response => {
 
-          }, response => {
-
-          });
-        }
+      }
 
 
     }

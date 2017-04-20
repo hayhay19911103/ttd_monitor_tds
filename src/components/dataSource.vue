@@ -10,10 +10,10 @@
         <div class="col-md-12">
           <div class="pic">
             <div class="left">
-              <router-link to="/cat"><span>CAT</span></router-link>
+              <router-link to="/CAT"><span>CAT</span></router-link>
             </div>
             <div class="right">
-              <router-link to="/dashboard"><span>Dashboard</span></router-link>
+              <router-link to="/Dashboard"><span>Dashboard</span></router-link>
             </div>
           </div>
         </div>

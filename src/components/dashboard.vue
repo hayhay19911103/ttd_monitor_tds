@@ -155,12 +155,12 @@ import navList from './sidebar/navList.vue'
           this.tagTip=true;
         }
 
-        this.$http.post(
-          'http://10.32.212.22:8080/Dashboard_API/servlet/SaveDashboard',
-          this.info,
-        ).then((response) => {
-          debugger
-        }).catch(function(response) {
+        this.$http.get(
+          'http://10.32.212.22:8080/Dashboard_API/servlet/SaveDashboard ',
+           this.info,
+        ).then(response => {
+
+        }, response => {
 
         });
 

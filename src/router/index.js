@@ -48,12 +48,12 @@ export default new Router({
       component: warnRule
     },
     {
-      path: '/cat',
+      path: '/CAT',
       name: 'cat',
       component: cat
     },
     {
-      path: '/dashboard',
+      path: '/Dashboard',
       name: 'dashboard',
       component: dashboard
     },
