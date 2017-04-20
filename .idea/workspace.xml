@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="9cc40b6e-584a-42cf-9166-c35506667ed7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/cat.vue" afterPath="$PROJECT_DIR$/src/components/cat.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/dashboard.vue" afterPath="$PROJECT_DIR$/src/components/dashboard.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/listPage.vue" afterPath="$PROJECT_DIR$/src/components/listPage.vue" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -54,8 +51,8 @@
       <file leaf-file-name="dashboard.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/dashboard.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="596">
-              <caret line="181" column="0" lean-forward="true" selection-start-line="181" selection-start-column="0" selection-end-line="181" selection-end-column="0" />
+            <state relative-caret-position="-2350">
+              <caret line="29" column="35" lean-forward="false" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
               <folding>
                 <element signature="n#style#0;n#label#1;n#div#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#input#0;n#div#0;n#div#2;n#form#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
@@ -597,7 +594,7 @@
       <workItem from="1492497519389" duration="15095000" />
       <workItem from="1492581955511" duration="13699000" />
       <workItem from="1492598765968" duration="5470000" />
-      <workItem from="1492652773722" duration="25074000" />
+      <workItem from="1492652773722" duration="26051000" />
     </task>
     <task id="LOCAL-00001" summary="一些样式的修改">
       <created>1491810469572</created>
@@ -718,11 +715,18 @@
       <option name="project" value="LOCAL" />
       <updated>1492678361125</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="表格操作">
+      <created>1492683940689</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1492683940689</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="212598000" />
+    <option name="totallyTimeSpent" value="213575000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -788,7 +792,8 @@
     <MESSAGE value="表单验证" />
     <MESSAGE value="表格暂停，开启，编辑，删除功能" />
     <MESSAGE value="任务列表页假数据显示，分页&#10;遗留bug:操作一栏会操作所有的数据" />
-    <option name="LAST_COMMIT_MESSAGE" value="任务列表页假数据显示，分页&#10;遗留bug:操作一栏会操作所有的数据" />
+    <MESSAGE value="表格操作" />
+    <option name="LAST_COMMIT_MESSAGE" value="表格操作" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1133,8 +1138,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/dashboard.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="596">
-          <caret line="181" column="0" lean-forward="true" selection-start-line="181" selection-start-column="0" selection-end-line="181" selection-end-column="0" />
+        <state relative-caret-position="-2350">
+          <caret line="29" column="35" lean-forward="false" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
           <folding>
             <element signature="n#style#0;n#label#1;n#div#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#0;n#div#0;n#div#2;n#form#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
