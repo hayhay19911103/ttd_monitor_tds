@@ -79,7 +79,7 @@
   .content {
     float: left;
     width: 87%;
-    /*height: 750px;*/
+    height:100%
   }
 </style>
 <script>
