@@ -43,7 +43,6 @@
                 <a style="color: #9d9d9d">图表</a><br>
                 <a style="color: #9d9d9d">看板</a>
                 <a style="color: #9d9d9d">告警规则</a>
-
               </div>
             </div>
             <div class="col-md-3 col-sm-6">

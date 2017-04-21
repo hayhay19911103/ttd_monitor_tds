@@ -64,7 +64,7 @@
   }
 </style>
 <script>
-  import navList from './sidebar/navList.vue'
+  import navList from '../components/sidebar/navList.vue'
   export default{
     name: 'listPage',
     components: {
@@ -76,12 +76,12 @@
         currentPage:1,//当前页
         pageList:[],//每页存放的列表数据,15条
         dataList: [
-            {
-          "taskName": "地面-搜索无结果率",
-          "dataSource": "Dashboard",
-          "establishTime": "03-13 15:05",
-           "isPlay":true,
-        },
+          {
+            "taskName": "地面-搜索无结果率",
+            "dataSource": "Dashboard",
+            "establishTime": "03-13 15:05",
+            "isPlay":true,
+          },
           {
             "taskName": "h5核心页面Restful",
             "dataSource": "Dashboard",

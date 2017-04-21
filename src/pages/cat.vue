@@ -124,7 +124,7 @@
 
 </style>
 <script>
-  import navList from './sidebar/navList.vue'
+  import navList from '../components/sidebar/navList.vue'
   export default{
     name: 'cat',
     components: {
@@ -174,10 +174,12 @@
     },
     methods: {
       showType: function () {
+        alert(this.appId)
         $.ajax({
           type:"get",
           url:"http://10.8.85.36:8090/CatAPI/GetCatType",
-          data:{appid:this.appId},
+          data:{appid:appId},
+          dataType:"jsonp",
           success:function (data) {
             debugger
             this.typeList=data

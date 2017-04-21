@@ -110,7 +110,7 @@
 
 </style>
 <script>
-  import navList from './sidebar/navList.vue'
+  import navList from '../components/sidebar/navList.vue'
   export default{
     name: 'dashboard',
     components: {
