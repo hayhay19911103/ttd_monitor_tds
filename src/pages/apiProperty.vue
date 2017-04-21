@@ -4,14 +4,14 @@
     <div class="content">
       <div class="content-top">
       <div class="form-group">
-        <label>一级类目:</label>
+        <label class="level">一级类目:</label>
         <div class="tag">
           <div class="btn btn-primary dis" type="button" value="OpenAPI" >OpenAPI</div>
           <div class="btn btn-default dis" type="button"value="Restful">Restful</div>
         </div>
       </div>
       <div class="form-group ">
-        <label>二级类目:</label>
+        <label class="level">二级类目:</label>
         <div class="tag">
           <div class="btn btn-primary dis" type="button"value="AVG" >AVG</div>
           <div class="btn btn-default dis" type="button"value="95line">95line</div>
@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label >三级类目:</label>
+        <label class="level">三级类目:</label>
         <div class="tag">
           <div class="btn btn-primary dis" type="button" value="不限">不限</div>
           <div class="btn btn-default dis"type="button" value="无线服务组">无线服务组</div>
@@ -383,7 +383,7 @@
     border-radius: 20px;
     outline:none;
   }
-    label{
+  .level label{
       float:left;
       margin-top: 5px;
       margin-right: 10px;

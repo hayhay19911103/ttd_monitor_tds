@@ -4,7 +4,7 @@
     <div class="content">
       <div class="content-top">
         <div class="form-group">
-          <label>一级类目:</label>
+          <label class="level">一级类目:</label>
           <div class="tag">
             <div class="btn btn-primary dis" type="button">Hybird</div>
             <div class="btn btn-default dis" type="button">H5</div>
@@ -12,7 +12,7 @@
           </div>
         </div>
         <div class="form-group ">
-          <label>二级类目:</label>
+          <label class="level">二级类目:</label>
           <div class="tag">
             <div class="btn btn-primary dis" type="button">DOMready</div>
             <div class="btn btn-default dis" type="button">JSError / PV</div>
@@ -20,7 +20,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label>三级类目:</label>
+          <label class="level">三级类目:</label>
           <div class="tag">
             <div class="btn btn-primary dis" type="button">不限</div>
             <div class="btn btn-default dis" type="button">无线一组</div>

@@ -52,39 +52,43 @@
           <div class="row form-inline distance col-md-12">
             <label style="position:absolute;top: 20px;">TAG:</label>
             <div class="checkbox" style="margin-top: 20px;margin-left: 50px">
-              <input type="checkbox" id="Total" value="Total" v-model="checkedTags"> <label for="Total">Total</label>
-              <input type="checkbox" id="Failure" value="Failure" v-model="checkedTags"> <label for="Failure">
-              Failure</label>
-              <input type="checkbox" id="Failure%" value="Failure%" v-model="checkedTags"> <label for="Failure%">Failure%</label>
-              <input type="checkbox" id="Min(ms)" value="Min(ms)" v-model="checkedTags"> <label
-              for="Min(ms)">Min(ms) </label>
-              <input type="checkbox" id="Max(ms)" value="Max(ms)" v-model="checkedTags"><label
-              for="Max(ms)">Max(ms)</label><br>
-              <input type="checkbox" id="Avg(ms)" value="Avg(ms)" v-model="checkedTags"><label
-              for="Avg(ms)">Avg(ms)</label>
+              <input type="checkbox" id="Total" value="Total" v-model="checkedTags">
+              <label for="Total">Total</label>
+              <input type="checkbox" id="Failure" value="Failure" v-model="checkedTags">
+              <label for="Failure">Failure</label>
+              <input type="checkbox" id="Failure%" value="Failure%" v-model="checkedTags">
+              <label for="Failure%">Failure%</label>
+              <input type="checkbox" id="Min(ms)" value="Min(ms)" v-model="checkedTags">
+              <label for="Min(ms)">Min(ms) </label>
+              <input type="checkbox" id="Max(ms)" value="Max(ms)" v-model="checkedTags">
+              <label for="Max(ms)">Max(ms)</label><br>
+              <input type="checkbox" id="Avg(ms)" value="Avg(ms)" v-model="checkedTags">
+              <label for="Avg(ms)">Avg(ms)</label>
               <input type="checkbox" id="95Line(ms)" value="95Line(ms)" v-model="checkedTags"><label for="95Line(ms)">95Line(ms)</label>
-              <input type="checkbox" id="99.9Line(ms)" value="99.9Line(ms)" v-model="checkedTags"><label
-              for="99.9Line(ms)">99.9Line(ms)</label>
-              <input type="checkbox" id="Std(ms)" value="Std(ms)" v-model="checkedTags"><label
-              for="Std(ms)">Std(ms)</label>
+              <input type="checkbox" id="99.9Line(ms)" value="99.9Line(ms)" v-model="checkedTags">
+              <label for="99.9Line(ms)">99.9Line(ms)</label>
+              <input type="checkbox" id="Std(ms)" value="Std(ms)" v-model="checkedTags">
+              <label for="Std(ms)">Std(ms)</label>
               <input type="checkbox" id="QPS" value="QPS" v-model="checkedTags"><label for="QPS">QPS</label>
-              <input type="checkbox" id="Percent%" value="Percent%" v-model="checkedTags"><label
-              for="Percent%">Percent%</label>
+              <input type="checkbox" id="Percent%" value="Percent%" v-model="checkedTags">
+              <label for="Percent%">Percent%</label>
             </div>
             <label v-if='checkedTagsTip' class="validate" style="color: red;font-size: 8px">*不能为空</label>
           </div>
 
+
           <!--Type区域-->
-          <div class="row form-inline distance col-md-12 " v-if="visible">
-            <div style="border: 1px solid grey;width: 80%;float: left;">
+          <div class="row form-inline distance col-md-12" v-if="visible">
+            <div style="border: 1px solid ;width: 80%;float: left;">
               <label style="position:absolute;top: 0px;">Type:</label>
               <div class="checkbox" style="margin-top: 0px;margin-left: 50px">
-                <template v-for="type in typeList" v-if="type.id!=System||type.id!=all">
-                  <input type="checkbox" :id="type.id" :value="type.id" v-model="checkedTypes">
-                  <label :for="type.id">{{type.id}}</label>
+                <template v-for="(type,index) in typeList" v-if="type!=System||type!=all">
+                  <input type="checkbox" :id="type" :value="type" v-model="checkedTypes">
+                  <label :for="type">{{type}}</label>
                 </template>
               </div>
             </div>
+
             <label v-if='checkedTagsTip' class="validate" style="color: red;font-size: 8px">*不能为空</label>
             <button type="button" class="btn btn-primary btn-sm " @click="showName"
                     style="margin-left: 20px;margin-top: 20px;">确定
@@ -93,7 +97,6 @@
           <!--tab表格区-->
 
 
-          <!--foot-->
           <div class="foot">
             <button type="button" class="btn btn-primary btn-sm " @click="submit">保存</button>
             <button type="button" class="btn btn-primary btn-sm ">取消</button>
@@ -104,7 +107,6 @@
   </div>
 </template>
 <style>
-
   .checkbox label {
     display: inline-block;
     width: 180px;
@@ -136,11 +138,11 @@
         taskName: "",
         timeInterval: "1*60",
         startTime: "",
-        appId: "",
+        appId: "760104",
         jobId: "",//修改的时候需要加上
         checkedTags: [],//选中的tag
         checkedTypes: [],//选中的type
-        typeList: {},//接收返回的type
+        typeList: [],//接收返回的type
         nameList: {},//接收返回的name
         checkedNames: "",//选中的name
         visible: false,
@@ -157,6 +159,7 @@
         },
       }
     },
+
     // 观察和响应 Vue 实例上的数据变动，用来判断字段否为空
     watch: {
       taskName: function (val) {
@@ -174,26 +177,29 @@
     },
     methods: {
       showType: function () {
-        alert(this.appId)
+        var me = this
         $.ajax({
-          type:"get",
-          url:"http://10.8.85.36:8090/CatAPI/GetCatType",
-          data:{appid:appId},
-          dataType:"jsonp",
-          success:function (data) {
-            debugger
-            this.typeList=data
+          type: "get",
+          url: "http://10.8.85.36:8090/CatAPI/GetCatType",
+          data: {
+            appid: me.appId
+          },
+          dataType: "jsonp",
+          success: function (data) {
+            for (var key in data) {
+              me.typeList = data[key];
+              debugger
+            }
           }
-        })
+        });
       },
       showName: function () {
         $.ajax({
-          type:"get",
-          url:"http://10.8.85.36:8090/CatAPI/GetCatType",
-          data:{appid:this.appId,checkedTypes:this.checkedTypes},
-          success:function (data) {
-            debugger
-            this.nameList=data
+          type: "get",
+          url: "http://10.8.85.36:8090/CatAPI/GetCatType",
+          data: {appid: this.appId, checkedTypes: this.checkedTypes},
+          success: function (data) {
+            this.nameList = data
           }
         })
       },
@@ -219,3 +225,4 @@
 
   }
 </script>
+
