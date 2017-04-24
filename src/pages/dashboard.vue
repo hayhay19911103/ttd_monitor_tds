@@ -21,7 +21,6 @@
                 <option value="24*60*7*60">1周</option>
               </select>
             </div>
-
           </div>
           <div class="row form-inline distance">
             <div class="form-group col-md-3 ">
@@ -51,44 +50,63 @@
               <input type="text" class="form-control input-sm" id="metricName" placeholder="" v-model="info.metricName"
                      list="metricNameList" style="width: 500px;">
               <datalist class=" input-sm" id="metricNameList">
-                <option value="fx.ubt.pv.count页面pv">fx.ubt.pv.count页面pv</option>
-                <option value="fx.ubt.mobile.pv.count页面pv">fx.ubt.mobile.pv.count页面pv</option>
-                <option value="fx.ubt.jserror.count页面jserror">fx.ubt.jserror.count页面jserror</option>
-                <option value="fx.ubt.perf.domready页面domready">fx.ubt.perf.domready页面domready</option>
-                <option value="js.lizard.ajaxready页面ajaxready">js.lizard.ajaxready页面ajaxready</option>
-                <option value="thingstodo.framework.servicestack.latency接口性能">
-                  thingstodo.framework.servicestack.latency接口性能
+                <option value="fx.ubt.pv.count">fx.ubt.pv.count&nbsp;&nbsp;页面pv</option>
+                <option value="fx.ubt.mobile.pv.count">fx.ubt.mobile.pv.count&nbsp;&nbsp;页面pv</option>
+                <option value="fx.ubt.jserror.count">fx.ubt.jserror.count&nbsp;&nbsp;页面jserror</option>
+                <option value="fx.ubt.perf.domready">fx.ubt.perf.domready&nbsp;&nbsp;页面domready</option>
+                <option value="js.lizard.ajaxready">js.lizard.ajaxready&nbsp;&nbsp;页面ajaxready</option>
+                <option value="thingstodo.framework.servicestack.latency">thingstodo.framework.servicestack.latency&nbsp;&nbsp;接口性能
                 </option>
-                <option value="thingstodo.framework.servicestack.count访问量">thingstodo.framework.servicestack.count访问量
+                <option value="thingstodo.framework.servicestack.count">thingstodo.framework.servicestack.count&nbsp;&nbsp;问量
                 </option>
               </datalist>
               <label v-if='metricNameTip' class="validate" style="color: red;font-size: 8px;">*不能为空</label>
             </div>
           </div>
-
-
           <label for="tag">Tag</label>
           <div class="row form-inline">
             <div class="form-group col-md-9">
               <input type="text" class="form-control input-sm col-md-6" style="width: 500px" id="tag"
                      placeholder="appid=1000000444" v-model="info.tag">
+              <label style="color: gray;font-size: 8px;margin-left: 10px">注意区分大小写</label>
               <label v-if='tagTip' class="validate" style="color: red;font-size: 8px">*不能为空</label>
             </div>
           </div>
-
           <label for="groupBy">Group By：</label>
           <div class="row form-inline">
             <div class="form-group col-md-9">
               <input type="text" class="form-control input-sm" id="groupBy" placeholder="appid;name"
                      v-model="info.groupBy" style="width: 500px;">
+              <label style="color: gray;font-size: 8px;margin-left: 10px">注意区分大小写</label>
               <label v-if='groupByTip' class="validate" style="color: red;font-size: 8px">*不能为空</label>
             </div>
           </div>
           <div class="footDashboard" style=" margin-top:80px;">
-            <button type="button" class="btn btn-primary btn-sm " @click="submit">保存</button>
+            <button type="button" class="btn btn-primary btn-sm " data-toggle="modal" @click="submit">保存</button>
             <button type="button" class="btn btn-primary btn-sm ">取消</button>
           </div>
         </form>
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content" >
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">提示信息</h4>
+            </div>
+            <div class="modal-body" style="text-align: center; height: 150px;">
+              <h3>保存成功，你可以继续：</h3>
+              <div  @click="goList"><h4>去列表页查看</h4></div>
+              <div  @click="continueAdd"><h4>继续添加数据源</h4></div>
+
+            </div>
+            <!--<div class="modal-footer">-->
+              <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+              <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+            <!--</div>-->
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -110,12 +128,21 @@
 
 </style>
 <script>
-  import navList from '../components/sidebar/navList.vue'
+  import navList from '../components/sidebar/navList.vue';
+
+//  import VueRouter from 'vue-router';
+
+//  Vue.use(VueRouter);
+
+//  const router = new VueRouter(); //这里可以带有路由器的配置参数
   export default{
     name: 'dashboard',
     components: {
-      'v-navList': navList
+      'v-navList': navList,
+
     },
+
+
     data: function () {
       return {
         info: {
@@ -131,6 +158,8 @@
         tagTip: false,
         metricNameTip: false,
         groupByTip: false,
+        testCode:"",//验证失败成功的代码
+//        showDialog:false
       }
     },
     watch: {
@@ -149,29 +178,41 @@
     },
     methods: {
       submit: function () {
-        if (this.info.taskName.length === 0) {
-          this.taskNameTip = true;
+        var  me=this
+        if (me.info.taskName.length === 0) {
+          me.taskNameTip = true;
         }
-        if (this.info.metricName.length === 0) {
-          this.metricNameTip = true;
+        if (me.info.metricName.length === 0) {
+          me.metricNameTip = true;
         }
-        if (this.info.groupBy.length === 0) {
-          this.groupByTip = true;
+        if (me.info.groupBy.length === 0) {
+          me.groupByTip = true;
         }
-        if (this.info.tag.length === 0) {
-          this.tagTip = true;
+        if (me.info.tag.length === 0) {
+          me.tagTip = true;
         }
 
         $.ajax({
           type: "post",
           url: "http://10.32.212.22:8080/Dashboard_API/servlet/SaveDashboard",
-          data: this.info,
+          data: me.info,
           success: function (data) {
+            $("#myModal").modal('show')
+            me.testCode = data.message.code
             debugger
-            this.nameList = data
+            if(me.testCode=0){
+              $("#myModal").modal('show')
+            }else{
+              alert("请确保信息填写正确")
+            }
           }
         })
 
+      },
+      goList:function () {
+          debugger
+        $("#myModal").modal('hide');
+        app.$router.push("listPage")
       }
 
     }

@@ -82,7 +82,7 @@
             <div style="border: 1px solid ;width: 80%;float: left;">
               <label style="position:absolute;top: 0px;">Type:</label>
               <div class="checkbox" style="margin-top: 0px;margin-left: 50px">
-                <template v-for="(type,index) in typeList" v-if="type!=System||type!=all">
+                <template v-for="(type,index) in typeList" v-if="type!='System'||type!='all'">
                   <input type="checkbox" :id="type" :value="type" v-model="checkedTypes">
                   <label :for="type">{{type}}</label>
                 </template>
@@ -94,8 +94,41 @@
                     style="margin-left: 20px;margin-top: 20px;">确定
             </button>
           </div>
-          <!--tab表格区-->
 
+          <!--tab表格区-->
+          <div class="tab" role="tabpanel" >
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs " role="tablist"  id="docTabs">
+              <li role="presentation" v-for="(item,index) in tabsData">
+                <a :href="'#'+index" :aria-controls="item.type" role="tab" data-toggle="tab">{{item.type}} </a>
+              </li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div role="tabpanel" v-for="(item,index) in tabsData" class="tab-pane fade in active" :id="index">
+                <div class="content_list">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr role="row" class="row-header">
+                          <th><input type="checkbox"></th>
+                          <th>Name</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr track-by="$index" v-for="typeValueItem in item.typeValue">
+                          <td><input type="checkbox"></td>
+                          <td>{{typeValueItem}}</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div class="foot">
             <button type="button" class="btn btn-primary btn-sm " @click="submit">保存</button>
@@ -114,12 +147,19 @@
     margin-right: 10px;
   }
 
+  .content_list {
+    height: 200px;
+    width: 80%;
+    overflow-x: hidden;
+
+  }
+
   .foot {
     text-align: center;
   }
 
   .foot button {
-    margin-top: 200px;
+    margin-top: 70px;
     margin-right: 80px;
     margin-left: 40px;
   }
@@ -131,7 +171,6 @@
     name: 'cat',
     components: {
       'v-navList': navList,
-
     },
     data: function () {
       return {
@@ -139,11 +178,12 @@
         timeInterval: "1*60",
         startTime: "",
         appId: "760104",
+        tabsData: [],
         jobId: "",//修改的时候需要加上
         checkedTags: [],//选中的tag
         checkedTypes: [],//选中的type
         typeList: [],//接收返回的type
-        nameList: {},//接收返回的name
+        nameList: [],//接收返回的name,变量，针对每个type存放的是不同的数组
         checkedNames: "",//选中的name
         visible: false,
         searchList: [],//联想功能的数据
@@ -152,6 +192,7 @@
         checkedTagsTip: false,
         appIdTip: false,
         checkedTypesTip: false,
+        currentView: "",
         pickerOptions0: {
           disabledDate(time) {
             return time.getTime() < Date.now() - 8.64e7 - 7 * 24 * 60 * 60 * 1000;
@@ -186,23 +227,35 @@
           },
           dataType: "jsonp",
           success: function (data) {
-            for (var key in data) {
-              me.typeList = data[key];
-              debugger
-            }
+            me.typeList = data[0].typeValue
+            me.visible = true
           }
         });
       },
       showName: function () {
+        var me = this
         $.ajax({
           type: "get",
           url: "http://10.8.85.36:8090/CatAPI/GetCatType",
-          data: {appid: this.appId, checkedTypes: this.checkedTypes},
+          data: {
+            appid: me.appId,
+            checkedTypes: me.checkedTypes
+          },
+          traditional: true,
+          dataType: "jsonp",
           success: function (data) {
-            this.nameList = data
+            me.tabsData = data;
+//            debugger;
+//            data.forEach(function (value, index) {
+//              me.nameList = value.typeValue
+//              debugger
+//            })
           }
         })
       },
+//      tabToggle: function(tabText) {
+//        this.currentView = tabText
+//      },
       submit: function () {
         if (this.taskName.length === 0) {
           this.taskNameTip = true;
