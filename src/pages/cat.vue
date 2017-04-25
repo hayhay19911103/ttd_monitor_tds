@@ -25,11 +25,11 @@
             <div class="form-group col-md-3">
               <label>间隔时间</label>
               <select class=" input-sm" v-model="timeInterval">
-                <option value="1*60" selected>1分钟</option>
-                <option value="10*60">10分钟</option>
-                <option value="60*60">1小时</option>
-                <option value="24*60*60 ">1天</option>
-                <option value="24*60*7*60">1周</option>
+                <option value="1" selected>1分钟</option>
+                <option value="10">10分钟</option>
+                <option value="60">1小时</option>
+                <option value="24*60 ">1天</option>
+                <option value="24*60*7">1周</option>
               </select>
             </div>
           </div>
@@ -37,7 +37,7 @@
             <div class="form-group col-md-12">
               <label for="appId">APP &nbsp;&nbsp; ID</label>
               <input type="text" class="form-control input-sm" id="appId" placeholder="100000445" v-model="appId"
-                     @keyup.enter="showType">
+                     @blur="showType">
               <div class="search-select">
                 <ul>
                   <li v-for="(item,index) in searchList" :key="item.label">
@@ -96,16 +96,16 @@
           </div>
 
           <!--tab表格区-->
-          <div class="tab" role="tabpanel" >
+          <div class="tab" role="tabpanel" v-if="showTab">
             <!-- Nav tabs -->
-            <ul class="nav nav-tabs " role="tablist"  id="docTabs">
-              <li role="presentation" v-for="(item,index) in tabsData">
+            <ul class="nav nav-tabs " role="tablist" id="docTabs">
+              <li role="presentation" v-for="(item,index) in tabsData" :class="index==0?'active':''">
                 <a :href="'#'+index" :aria-controls="item.type" role="tab" data-toggle="tab">{{item.type}} </a>
               </li>
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
-              <div role="tabpanel" v-for="(item,index) in tabsData" class="tab-pane fade in active" :id="index">
+              <div role="tabpanel" v-for="(item,index) in tabsData" class="tab-pane fade in"  :class=" index==0?'active':'' " :id="index">
                 <div class="content_list">
                   <div class="row">
                     <div class="col-sm-12">
@@ -117,9 +117,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr track-by="$index" v-for="typeValueItem in item.typeValue">
-                          <td><input type="checkbox"></td>
-                          <td>{{typeValueItem}}</td>
+
+                        <tr v-for="(typeValueItem,row) in item.typeValue">
+                          <td><input type="checkbox"  :id="index+'_'+row" :value="item.type+'@@'+typeValueItem"  v-model="checkedNames"></td>
+                          <td><label :for="index+'_'+row">{{typeValueItem}}</label></td>
                         </tr>
                         </tbody>
                       </table>
@@ -129,12 +130,28 @@
               </div>
             </div>
           </div>
-
           <div class="foot">
             <button type="button" class="btn btn-primary btn-sm " @click="submit">保存</button>
             <button type="button" class="btn btn-primary btn-sm ">取消</button>
           </div>
         </form>
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content" >
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">提示信息</h4>
+            </div>
+            <div class="modal-body" style="text-align: center; height: 150px;">
+              <h3>保存成功，你可以继续：</h3>
+              <div  @click="goList"><h4>去列表页查看</h4></div>
+              <div  @click="continueAdd"><h4>继续添加数据源</h4></div>
+
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -175,24 +192,27 @@
     data: function () {
       return {
         taskName: "",
-        timeInterval: "1*60",
+        timeInterval: "1",
         startTime: "",
         appId: "760104",
-        tabsData: [],
+
         jobId: "",//修改的时候需要加上
         checkedTags: [],//选中的tag
         checkedTypes: [],//选中的type
+        checkedNames: [],//选中的name
         typeList: [],//接收返回的type
-        nameList: [],//接收返回的name,变量，针对每个type存放的是不同的数组
-        checkedNames: "",//选中的name
+        tabsData: [],//接收返回的name,变量，针对每个type存放的是不同的数组
+        selectedList: [],//选中的type对应name
         visible: false,
-        searchList: [],//联想功能的数据
+        showTab: false,
+        selectedData: [],//联想功能的数据
 
-        taskNameTip: false,
+        taskNameTip: false,//验证用
         checkedTagsTip: false,
         appIdTip: false,
         checkedTypesTip: false,
         currentView: "",
+        testCode:"",
         pickerOptions0: {
           disabledDate(time) {
             return time.getTime() < Date.now() - 8.64e7 - 7 * 24 * 60 * 60 * 1000;
@@ -244,33 +264,60 @@
           traditional: true,
           dataType: "jsonp",
           success: function (data) {
-            me.tabsData = data;
-//            debugger;
-//            data.forEach(function (value, index) {
-//              me.nameList = value.typeValue
-//              debugger
-//            })
+            me.tabsData = data
+            me.showTab = true
+//            $("#docTabs a:first").tab('show')
           }
         })
       },
-//      tabToggle: function(tabText) {
-//        this.currentView = tabText
-//      },
       submit: function () {
-        if (this.taskName.length === 0) {
-          this.taskNameTip = true;
+        var me = this
+        if (me.taskName.length === 0) {
+          me.taskNameTip = true;
         }
-        if (this.appId.length === 0) {
-          this.appIdTip = true;
+        if (me.appId.length === 0) {
+          me.appIdTip = true;
         }
-        if (this.checkedTags.length === 0) {
-          this.checkedTagsTip = true;
+        if (me.checkedTags.length === 0) {
+          me.checkedTagsTip = true;
         }
-        if (this.checkedTypes.length === 0) {
-          this.checkedTypesTip = true;
+        if (me.checkedTypes.length === 0) {
+          me.checkedTypesTip = true;
         }
         //当判断元素不为空时，提交请求
+        var obj = {type: "", typeValue: []}
 
+        $.ajax({
+          type: "get",
+          url: "http://10.8.85.36:8090/CatAPI/GetCatType",
+          data: {
+            taskName: me.taskName,
+            timeInterval: me.timeInterval,
+            appid: me.appId,
+            checkedTags: me.checkedTags,
+            checkedNames:me.checkedNames,
+//            checkedTypes: me.checkedTypes,
+          },
+          traditional: true,
+          dataType: "jsonp",
+          success: function (data) {
+            debugger
+            me.testCode = data.message.code
+            if (me.testCode == 0) {
+              $("#myModal").modal('show')
+            } else {
+              alert("请确保信息填写正确")
+            }
+          }
+        })
+      },
+      goList:function () {
+        $("#myModal").modal('hide')
+        app.$router.push("listPage")
+      },
+      continueAdd:function () {
+        $("#myModal").modal('hide')
+        app.$router.push("dataSource")
       }
 
 

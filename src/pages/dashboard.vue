@@ -15,10 +15,10 @@
               <label>间隔时间</label>
               <select class=" input-sm" v-model="info.timeInterval">
                 <option value="1" selected>1分钟</option>
-                <option value="10*60">10分钟</option>
-                <option value="60*60">1小时</option>
-                <option value="24*60*60 ">1天</option>
-                <option value="24*60*7*60">1周</option>
+                <option value="10">10分钟</option>
+                <option value="60">1小时</option>
+                <option value="24*60">1天</option>
+                <option value="24*60*7">1周</option>
               </select>
             </div>
           </div>
@@ -97,14 +97,10 @@
             </div>
             <div class="modal-body" style="text-align: center; height: 150px;">
               <h3>保存成功，你可以继续：</h3>
-              <div  @click="goList"><h4>去列表页查看</h4></div>
-              <div  @click="continueAdd"><h4>继续添加数据源</h4></div>
+              <div  @click="goList"><h4><a>去列表页查看</a></h4></div>
+              <div  @click="continueAdd"><h4><a>继续添加数据源</a></h4></div>
 
             </div>
-            <!--<div class="modal-footer">-->
-              <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-              <!--<button type="button" class="btn btn-primary">Save changes</button>-->
-            <!--</div>-->
           </div>
         </div>
       </div>
@@ -129,20 +125,12 @@
 </style>
 <script>
   import navList from '../components/sidebar/navList.vue';
-
-//  import VueRouter from 'vue-router';
-
-//  Vue.use(VueRouter);
-
-//  const router = new VueRouter(); //这里可以带有路由器的配置参数
   export default{
     name: 'dashboard',
     components: {
       'v-navList': navList,
 
     },
-
-
     data: function () {
       return {
         info: {
@@ -158,7 +146,7 @@
         tagTip: false,
         metricNameTip: false,
         groupByTip: false,
-        testCode:"",//验证失败成功的代码
+        testCode:""//验证失败成功的代码
 //        showDialog:false
       }
     },
@@ -191,28 +179,27 @@
         if (me.info.tag.length === 0) {
           me.tagTip = true;
         }
-
         $.ajax({
           type: "post",
           url: "http://10.32.212.22:8080/Dashboard_API/servlet/SaveDashboard",
           data: me.info,
           success: function (data) {
-            $("#myModal").modal('show')
             me.testCode = data.message.code
-            debugger
-            if(me.testCode=0){
+            if(me.testCode==0){
               $("#myModal").modal('show')
             }else{
               alert("请确保信息填写正确")
             }
           }
         })
-
       },
       goList:function () {
-          debugger
-        $("#myModal").modal('hide');
+        $("#myModal").modal('hide')
         app.$router.push("listPage")
+      },
+      continueAdd:function () {
+        $("#myModal").modal('hide')
+        app.$router.push("dataSource")
       }
 
     }

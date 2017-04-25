@@ -18,22 +18,25 @@
               </tr>
               </thead>
               <tbody>
-              <tr v-for="(item,index) in pageList" >
-                <td>{{item.taskName}}</td>
-                <td>{{item.dataSource}}</td>
-                <td>{{item.establishTime}}</td>
+              <tr v-for="(item,index) in pageList">
+                <td>{{item.taskname}}</td>
+                <td>{{item.sourcedata}}</td>
+                <td>{{item.createdtime}}</td>
                 <td>
                   <div type="button" class="btn btn-primary btn-xs " style="background-color: #5cb85c;border: none"
-                       v-if="item.isPlay" >OK
+                       v-if="item.isplay==1">OK
                   </div>
                   <div type="button" class="btn btn-primary btn-xs " style="background-color: #d9534f;border: none"
-                       v-if="!item.isPlay" >NO
+                       v-if="item.isplay==0">NO
                   </div>
                 </td>
                 <td>
-                  <a><span   class="glyphicon" :class="{'glyphicon-play':item.isPlay,'glyphicon-pause':!item.isPlay}" @click="playOrPauseJob(index)"></span></a>
-                  <router-link :to="item.dataSource"><span  class="glyphicon glyphicon-pencil" style="margin-left: 10px;"></span></router-link>
-                  <a><span  class="glyphicon glyphicon-remove" style="margin-left: 10px;" @click="delJob"></span></a>
+                  <a><span class="glyphicon" :class="{'glyphicon-play':item.isPlay,'glyphicon-pause':!item.isPlay}"
+                           @click="playOrPauseJob(item)"></span></a>
+                  <!--<router-link :to="item.sourcedata"><span class="glyphicon glyphicon-pencil"-->
+                                                           <!--style="margin-left: 10px;"></span></router-link>-->
+                  <a><span class="glyphicon glyphicon-remove" style="margin-left: 10px;"
+                           @click="delJob(item)"></span></a>
                 </td>
               </tr>
               </tbody>
@@ -72,272 +75,61 @@
     },
     data: function () {
       return {
-        isPlay: true,
-        currentPage:1,//当前页
-        pageList:[],//每页存放的列表数据,15条
-        dataList: [
-          {
-            "taskName": "地面-搜索无结果率",
-            "dataSource": "Dashboard",
-            "establishTime": "03-13 15:05",
-            "isPlay":true,
-          },
-          {
-            "taskName": "h5核心页面Restful",
-            "dataSource": "Dashboard",
-            "establishTime": "03-10 10:20",
-            "isPlay":false,
-
-          },
-          {
-            "taskName": "门票产品预订API",
-            "dataSource": "CAT",
-            "establishTime": "02-28 18:01",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":false,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":false,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "CAT",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },{
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true, },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },{
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":false,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":false,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":false,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":false,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":true,
-          },
-          {
-            "taskName": "所有接口周AVG",
-            "dataSource": "Dashboard",
-            "establishTime": "04-01 11:00",
-            "isPlay":false,
-          },],
+        isplay: "",
+        currentPage: 1,//当前页
+        pageList: [],//每页存放的列表数据,15条
+        dataList: []
       }
     },
-    created:function () {
+    created: function () {
       this.searchList()
-      this.pageList=this.dataList.slice((this.currentPage-1)*15,this.currentPage*15-1)
+      this.pageList = this.dataList.slice((this.currentPage - 1) * 15, this.currentPage * 15 - 1)
 
     },
     methods: {
       searchList: function () {
-        this.$http.get(
-          '',
-          {}
-        ).then(response => {
-
-        }, response => {
-        });
-      },
-      playOrPauseJob: function (index) {
-        this.$http.get(
-          '',
-          {}
-        ).then(response => {
-            this.dataList[index].isPlay=!this.dataList[index].isPlay
-        }, response => {
-        });
-      },
-      delJob: function () {
-        confirm("确定删除本条数据吗？", function () {
-          //发请求删除数据
-          this.$http.get(
-            '',
-            {}
-          ).then(response => {
-          }, response => {
-          });
-
+        var me = this
+        $.ajax({
+          type: "get",
+          url: "http://10.8.85.36:8090/CatAPI/GetJobList",
+          data: {},
+          traditional: true,
+          dataType: "jsonp",
+          success: function (data) {
+            me.dataList = data
+            me.pageList = me.dataList.slice((me.currentPage - 1) * 15, me.currentPage * 15 - 1)
+          }
         })
       },
-      handleCurrentChange:function (currentPage) {
+      playOrPauseJob: function (item) {
+        $.ajax({
+          type: "post",
+          url: "http://10.32.212.22:8080/Dashboard_API/servlet/PauseDashboard",
+          data: {jobId: item.id},
+          success: function (data) {
+            debugger
+          }
+        })
+      },
+      delJob: function (item) {
+        confirm("确定删除本条数据吗？", function () {
+          $.ajax({
+            type: "post",
+            url: "http://10.32.212.22:8080/Dashboard_API/servlet/RemoveDashboard",
+            data: {jobId: item.id},
+            success: function (data) {
+              debugger
+              me.searchList()
+//              me.dataList = data
+//              me.pageList = me.dataList.slice((me.currentPage - 1) * 15, me.currentPage * 15 - 1)
+            }
+          })
+        })
+      },
+         handleCurrentChange: function (currentPage) {
         //当前页面变换
-        this.currentPage=currentPage
-        this.pageList=this.dataList.slice((this.currentPage-1)*15,this.currentPage*15-1)
+        this.currentPage = currentPage
+        this.pageList = this.dataList.slice((this.currentPage - 1) * 15, this.currentPage * 15 - 1)
       }
     }
   }
