@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="9cc40b6e-584a-42cf-9166-c35506667ed7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/cat.vue" afterPath="$PROJECT_DIR$/src/pages/cat.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/listPage.vue" afterPath="$PROJECT_DIR$/src/pages/listPage.vue" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -641,7 +639,7 @@
       <workItem from="1492598765968" duration="5470000" />
       <workItem from="1492652773722" duration="51521000" />
       <workItem from="1492999585003" duration="40378000" />
-      <workItem from="1493104539879" duration="25649000" />
+      <workItem from="1493104539879" duration="25660000" />
     </task>
     <task id="LOCAL-00001" summary="一些样式的修改">
       <created>1491810469572</created>
@@ -818,11 +816,18 @@
       <option name="project" value="LOCAL" />
       <updated>1493195068387</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="开启关闭">
+      <created>1493201119200</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1493201119200</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="305072000" />
+    <option name="totallyTimeSpent" value="305083000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
