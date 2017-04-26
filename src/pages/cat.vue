@@ -10,7 +10,7 @@
             <div class="form-group col-md-3">
               <label for="taskName">任务名称</label>
               <input type="text" class="form-control input-sm" id="taskName" placeholder="简单的说明一下" v-model="taskName">
-              <label v-if='taskNameTip' class="validate" style="color: red;font-size: 8px">*不能为空</label>
+              <label v-if='tips.taskNameTip' class="validate" style="color: red;font-size: 8px">*不能为空</label>
             </div>
             <!--<div class="form-group col-md-3">-->
             <!--<label>开始时间</label>-->
@@ -45,7 +45,7 @@
                   </li>
                 </ul>
               </div>
-              <label v-if='appIdTip' class="validate" style="color: red;font-size: 8px">*不能为空</label>
+              <label v-if='tips.appIdTip' class="validate" style="color: red;font-size: 8px">*不能为空</label>
             </div>
           </div>
           <!--TAG区域-->
@@ -73,8 +73,9 @@
               <input type="checkbox" id="Percent%" value="Percent%" v-model="checkedTags">
               <label for="Percent%">Percent%</label>
             </div>
-            <label v-if='checkedTagsTip' class="validate" style="color: red;font-size: 8px">*不能为空</label>
+            <label v-if='tips.checkedTagsTip' class="validate" style="color: red;font-size: 8px">*不能为空</label>
           </div>
+
 
 
           <!--Type区域-->
@@ -89,7 +90,7 @@
               </div>
             </div>
 
-            <label v-if='checkedTagsTip' class="validate" style="color: red;font-size: 8px">*不能为空</label>
+            <label v-if='tips.checkedTypesTip' class="validate" style="color: red;font-size: 8px">*不能为空</label>
             <button type="button" class="btn btn-primary btn-sm " @click="showName"
                     style="margin-left: 20px;margin-top: 20px;">确定
             </button>
@@ -105,7 +106,8 @@
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
-              <div role="tabpanel" v-for="(item,index) in tabsData" class="tab-pane fade in"  :class=" index==0?'active':'' " :id="index">
+              <div role="tabpanel" v-for="(item,index) in tabsData" class="tab-pane fade in"
+                   :class=" index==0?'active':'' " :id="index">
                 <div class="content_list">
                   <div class="row">
                     <div class="col-sm-12">
@@ -118,7 +120,8 @@
                         </thead>
                         <tbody>
                         <tr v-for="(typeValueItem,row) in item.typeValue">
-                          <td><input type="checkbox"  :id="index+'_'+row" :value="item.type+'@@'+typeValueItem"  v-model="checkedNames"></td>
+                          <td><input type="checkbox" :id="index+'_'+row" :value="item.type+'@@'+typeValueItem"
+                                     v-model="checkedNames"></td>
                           <td><label :for="index+'_'+row">{{typeValueItem}}</label></td>
                         </tr>
                         </tbody>
@@ -128,6 +131,8 @@
                 </div>
               </div>
             </div>
+            <label v-if='tips.checkedNamesTip' class="validate" style="color: red;font-size: 8px">*不能为空</label>
+
           </div>
           <div class="foot">
             <button type="button" class="btn btn-primary btn-sm " @click="submit">保存</button>
@@ -136,17 +141,18 @@
         </form>
       </div>
       <!-- Modal -->
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
-          <div class="modal-content" >
+          <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+              </button>
               <h4 class="modal-title" id="myModalLabel">提示信息</h4>
             </div>
             <div class="modal-body" style="text-align: center; height: 150px;">
               <h3>保存成功，你可以继续：</h3>
-              <div  @click="goList"><h4>去列表页查看</h4></div>
-              <div  @click="continueAdd"><h4>继续添加数据源</h4></div>
+              <div @click="goList"><h4>去列表页查看</h4></div>
+              <div @click="continueAdd"><h4>继续添加数据源</h4></div>
 
             </div>
           </div>
@@ -202,16 +208,20 @@
         typeList: [],//接收返回的type
         tabsData: [],//接收返回的name,变量，针对每个type存放的是不同的数组
         selectedList: [],//选中的type对应name
+        tips:{
+          taskNameTip: false,//验证用
+          checkedTagsTip: false,
+          appIdTip: false,
+          checkedTypesTip: false,
+          checkedNamesTip:false
+        },
         visible: false,
         showTab: false,
         selectedData: [],//联想功能的数据
 
-        taskNameTip: false,//验证用
-        checkedTagsTip: false,
-        appIdTip: false,
-        checkedTypesTip: false,
+
         currentView: "",
-        testCode:"",
+        testCode: "",
         pickerOptions0: {
           disabledDate(time) {
             return time.getTime() < Date.now() - 8.64e7 - 7 * 24 * 60 * 60 * 1000;
@@ -223,16 +233,19 @@
     // 观察和响应 Vue 实例上的数据变动，用来判断字段否为空
     watch: {
       taskName: function (val) {
-        val.length == 0 ? this.taskNameTip = true : this.taskNameTip = false
+        val.length == 0 ? this.tips.taskNameTip = true : this.tips.taskNameTip = false
       },
       appId: function (val) {
-        val.length == 0 ? this.appIdTip = true : this.appIdTip = false
+        val.length == 0 ? this.tips.appIdTip = true : this.tips.appIdTip = false
       },
       checkedTags: function (val) {
-        val.length == 0 ? this.checkedTagsTip = true : this.checkedTagsTip = false
+        val.length == 0 ? this.tips.checkedTagsTip = true : this.tips.checkedTagsTip = false
       },
       checkedTypes: function (val) {
-        val.length == 0 ? this.checkedTypesTip = true : this.checkedTypesTip = false
+        val.length == 0 ? this.tips.checkedTypesTip = true : this.tips.checkedTypesTip = false
+      },
+      checkedNames: function (val) {
+        val.length == 0 ? this.tips.checkedNamesTip = true : this.tips.checkedNamesTip = false
       },
     },
     methods: {
@@ -272,49 +285,53 @@
       submit: function () {
         var me = this
         if (me.taskName.length === 0) {
-          me.taskNameTip = true;
+          me.tips.taskNameTip = true;
         }
         if (me.appId.length === 0) {
-          me.appIdTip = true;
+          me.tips.appIdTip = true;
         }
         if (me.checkedTags.length === 0) {
-          me.checkedTagsTip = true;
+          me.tips.checkedTagsTip = true;
         }
         if (me.checkedTypes.length === 0) {
-          me.checkedTypesTip = true;
+          me.tips.checkedTypesTip = true;
         }
-        //当判断元素不为空时，提交请求
-        var obj = {type: "", typeValue: []}
-
-        $.ajax({
-          type: "get",
-          url: "http://10.8.85.36:8090/CatAPI/GetCatType",
-          data: {
-            taskName: me.taskName,
-            timeInterval: me.timeInterval,
-            appid: me.appId,
-            checkedTags: me.checkedTags,
-            checkedNames:me.checkedNames,
+        if (me.checkedNames.length === 0) {
+          me.tips.checkedNamesTip = true;
+        }
+        if (me.taskName.length !== 0 && me.appId.length !== 0 && me.checkedTags.length !== 0 && me.checkedTypes.length !== 0&&me.checkedNames.length !== 0) {
+            debugger;
+          //当判断元素不为空时，提交请求
+          $.ajax({
+            type: "get",
+            url: "http://10.8.85.36:8090/CatAPI/GetCatType",
+            data: {
+              taskName: me.taskName,
+              timeInterval: me.timeInterval,
+              appid: me.appId,
+              checkedTags: me.checkedTags,
+              checkedNames: me.checkedNames,
 //            checkedTypes: me.checkedTypes,
-          },
-          traditional: true,
-          dataType: "jsonp",
-          success: function (data) {
-            debugger
-            me.testCode = data.message.code
-            if (me.testCode == 0) {
-              $("#myModal").modal('show')
-            } else {
-              alert("请确保信息填写正确")
+            },
+            traditional: true,
+            dataType: "jsonp",
+            success: function (data) {
+              debugger
+//              me.testCode = data.message.code
+//              if (me.testCode == 0) {
+//                $("#myModal").modal('show')
+//              } else {
+//                alert("请确保信息填写正确")
+//              }
             }
-          }
-        })
+          })
+        }
       },
-      goList:function () {
+      goList: function () {
         $("#myModal").modal('hide')
         app.$router.push("listPage")
       },
-      continueAdd:function () {
+      continueAdd: function () {
         $("#myModal").modal('hide')
         app.$router.push("dataSource")
       }

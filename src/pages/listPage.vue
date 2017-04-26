@@ -10,6 +10,7 @@
               <caption style="text-align: left;font-size: 30px">任务列表页</caption>
               <thead>
               <tr role="row" class="row-header">
+                <th>id</th>
                 <th>任务名称</th>
                 <th>数据来源</th>
                 <th>创建时间</th>
@@ -19,6 +20,7 @@
               </thead>
               <tbody>
               <tr v-for="(item,index) in pageList">
+                <th>{{item.isplay}}</th>
                 <td>{{item.taskname}}</td>
                 <td>{{item.sourcedata}}</td>
                 <td>{{item.createdtime}}</td>
@@ -31,10 +33,10 @@
                   </div>
                 </td>
                 <td>
-                  <a><span class="glyphicon" :class="{'glyphicon-play':item.isPlay,'glyphicon-pause':!item.isPlay}"
+                  <a><span class="glyphicon" :class="{'glyphicon-play':item.isplay==0,'glyphicon-pause':item.isplay==1}"
                            @click="playOrPauseJob(item)"></span></a>
                   <!--<router-link :to="item.sourcedata"><span class="glyphicon glyphicon-pencil"-->
-                                                           <!--style="margin-left: 10px;"></span></router-link>-->
+                  <!--style="margin-left: 10px;"></span></router-link>-->
                   <a><span class="glyphicon glyphicon-remove" style="margin-left: 10px;"
                            @click="delJob(item)"></span></a>
                 </td>
@@ -75,7 +77,7 @@
     },
     data: function () {
       return {
-        isplay: "",
+        isPlay: "",
         currentPage: 1,//当前页
         pageList: [],//每页存放的列表数据,15条
         dataList: []
@@ -102,31 +104,68 @@
         })
       },
       playOrPauseJob: function (item) {
+        debugger;
+//        var operate=item.isplay==0?true:false;
         $.ajax({
           type: "post",
           url: "http://10.8.85.36:8090/DashboardAPI/servlet/PauseDashboard",
-          data: {jobId: item.id},
+          data: {
+            jobId: item.id,
+            isPlay: item.isplay == 0 ? true : false
+          },
+          dataType: "jsonp",
           success: function (data) {
-            debugger
+            debugger;
+            if (data.code == 0 && item.isplay == 1) {
+              alert("暂停成功")
+            } else if (data.code == 0 && item.isplay == 0) {
+              alert("开启成功")
+            }
+          },
+          error: function () {
+            alert(222)
           }
         })
       },
       delJob: function (item) {
-        confirm("确定删除本条数据吗？", function () {
-          $.ajax({
-            type: "post",
-            url: "http://10.8.85.36:8090/DashboardAPI/servlet/RemoveDashboard",
-            data: {jobId: item.id},
-            success: function (data) {
-              debugger
-              me.searchList()
-//              me.dataList = data
-//              me.pageList = me.dataList.slice((me.currentPage - 1) * 15, me.currentPage * 15 - 1)
-            }
-          })
-        })
+        var me = this;
+        if (confirm("确定删除本条数据吗？")) {
+          if (item.sourcedata == 'Cat') {
+            $.ajax({
+              type: "post",
+              url: "http://10.8.85.36:8090/DashboardAPI/servlet/RemoveDashboard",
+              data: {jobId: item.id},
+              dataType: "jsonp",
+              success: function (data) {
+                debugger;
+                if (data.message.code == 0) {
+                  me.searchList()
+                  alert('删除成功！')
+                } else {
+                  alert('job不存在！')
+                }
+              }
+            })
+          } else if (item.sourcedata == 'dashboard') {
+            $.ajax({
+              type: "post",
+              url: "http://10.8.85.36:8090/DashboardAPI/servlet/RemoveDashboard",
+              data: {jobId: item.id},
+              dataType: "jsonp",
+              success: function (data) {
+                debugger;
+                if (data.message.code == 0) {
+                  alert('删除成功！')
+                  me.searchList()
+                } else {
+                  alert('job不存在！')
+                }
+              }
+            })
+          }
+        }
       },
-         handleCurrentChange: function (currentPage) {
+      handleCurrentChange: function (currentPage) {
         //当前页面变换
         this.currentPage = currentPage
         this.pageList = this.dataList.slice((this.currentPage - 1) * 15, this.currentPage * 15 - 1)

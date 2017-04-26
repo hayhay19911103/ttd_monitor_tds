@@ -88,17 +88,18 @@
         </form>
       </div>
       <!-- Modal -->
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
-          <div class="modal-content" >
+          <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+              </button>
               <h4 class="modal-title" id="myModalLabel">提示信息</h4>
             </div>
             <div class="modal-body" style="text-align: center; height: 150px;">
               <h3>保存成功，你可以继续：</h3>
-              <div  @click="goList"><h4><a>去列表页查看</a></h4></div>
-              <div  @click="continueAdd"><h4><a>继续添加数据源</a></h4></div>
+              <div @click="goList"><h4><a>去列表页查看</a></h4></div>
+              <div @click="continueAdd"><h4><a>继续添加数据源</a></h4></div>
 
             </div>
           </div>
@@ -146,7 +147,7 @@
         tagTip: false,
         metricNameTip: false,
         groupByTip: false,
-        testCode:""//验证失败成功的代码
+        testCode: ""//验证失败成功的代码
 //        showDialog:false
       }
     },
@@ -166,7 +167,7 @@
     },
     methods: {
       submit: function () {
-        var  me=this
+        var me = this
         if (me.info.taskName.length === 0) {
           me.taskNameTip = true;
         }
@@ -183,21 +184,26 @@
           type: "post",
           url: "http://10.8.85.36:8090/DashboardAPI/servlet/SaveDashboard",
           data: me.info,
+          dataType:"jsonp",
           success: function (data) {
+            debugger;
             me.testCode = data.message.code
-            if(me.testCode==0){
+            if (me.testCode == 0) {
               $("#myModal").modal('show')
-            }else{
+            } else {
               alert("请确保信息填写正确")
             }
-          }
+          },
+//          error: function (e) {
+//            debugger
+//          }
         })
       },
-      goList:function () {
+      goList: function () {
         $("#myModal").modal('hide')
         app.$router.push("listPage")
       },
-      continueAdd:function () {
+      continueAdd: function () {
         $("#myModal").modal('hide')
         app.$router.push("dataSource")
       }
