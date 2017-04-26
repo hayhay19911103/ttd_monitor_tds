@@ -104,28 +104,56 @@
         })
       },
       playOrPauseJob: function (item) {
-        debugger;
-//        var operate=item.isplay==0?true:false;
-        $.ajax({
-          type: "post",
-          url: "http://10.8.85.36:8090/DashboardAPI/servlet/PauseDashboard",
-          data: {
-            jobId: item.id,
-            isPlay: item.isplay == 0 ? true : false
-          },
-          dataType: "jsonp",
-          success: function (data) {
-            debugger;
-            if (data.code == 0 && item.isplay == 1) {
-              alert("暂停成功")
-            } else if (data.code == 0 && item.isplay == 0) {
-              alert("开启成功")
-            }
-          },
-          error: function () {
-            alert(222)
+          if(item.sourcedata=="Cat"){
+            $.ajax({
+              type: "post",
+              url: "http://10.8.85.36:8090/DashboardAPI/servlet/PauseDashboard",//todo
+              data: {
+                jobId: item.id,
+                isPlay: item.isplay == 1 ? 0 : 1
+              },
+              dataType: "jsonp",
+              success: function (data) {
+                debugger;
+                if (data.code == 0) {
+                  if (item.isplay == 1) {
+                    alert("暂停成功")
+                    item.isplay = 0
+                  } else if (item.isplay == 0) {
+                    alert("开启成功")
+                    item.isplay = 1
+                  }
+                } else {
+                  alert('操作失败！')
+                }
+              },
+            })
+          }else if(item.sourcedata=="dashboard"){
+            $.ajax({
+              type: "post",
+              url: "http://10.8.85.36:8090/DashboardAPI/servlet/PauseDashboard",
+              data: {
+                jobId: item.id,
+                isPlay: item.isplay == 1 ? 0 : 1
+              },
+              dataType: "jsonp",
+              success: function (data) {
+                debugger;
+                if (data.code == 0) {
+                  if (item.isplay == 1) {
+                    alert("暂停成功")
+                    item.isplay = 0
+                  } else if (item.isplay == 0) {
+                    alert("开启成功")
+                    item.isplay = 1
+                  }
+                } else {
+                  alert('操作失败！')
+                }
+              },
+            })
           }
-        })
+
       },
       delJob: function (item) {
         var me = this;
@@ -133,7 +161,7 @@
           if (item.sourcedata == 'Cat') {
             $.ajax({
               type: "post",
-              url: "http://10.8.85.36:8090/DashboardAPI/servlet/RemoveDashboard",
+              url: "http://10.8.85.36:8090/DashboardAPI/servlet/RemoveDashboard",//todo
               data: {jobId: item.id},
               dataType: "jsonp",
               success: function (data) {

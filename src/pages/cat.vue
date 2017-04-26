@@ -206,7 +206,7 @@
         checkedTypes: [],//选中的type
         checkedNames: [],//选中的name
         typeList: [],//接收返回的type
-        tabsData: [],//接收返回的name,变量，针对每个type存放的是不同的数组
+        tabsData: [],//接收返回的name,变量
         selectedList: [],//选中的type对应name
         tips:{
           taskNameTip: false,//验证用
@@ -317,12 +317,6 @@
             dataType: "jsonp",
             success: function (data) {
               debugger
-//              me.testCode = data.message.code
-//              if (me.testCode == 0) {
-//                $("#myModal").modal('show')
-//              } else {
-//                alert("请确保信息填写正确")
-//              }
             }
           })
         }
