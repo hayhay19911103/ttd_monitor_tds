@@ -104,7 +104,7 @@
       playOrPauseJob: function (item) {
         $.ajax({
           type: "post",
-          url: "http://10.32.212.22:8080/Dashboard_API/servlet/PauseDashboard",
+          url: "http://10.8.85.36:8090/DashboardAPI/servlet/PauseDashboard",
           data: {jobId: item.id},
           success: function (data) {
             debugger
@@ -115,7 +115,7 @@
         confirm("确定删除本条数据吗？", function () {
           $.ajax({
             type: "post",
-            url: "http://10.32.212.22:8080/Dashboard_API/servlet/RemoveDashboard",
+            url: "http://10.8.85.36:8090/DashboardAPI/servlet/RemoveDashboard",
             data: {jobId: item.id},
             success: function (data) {
               debugger

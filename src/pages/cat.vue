@@ -117,7 +117,6 @@
                         </tr>
                         </thead>
                         <tbody>
-
                         <tr v-for="(typeValueItem,row) in item.typeValue">
                           <td><input type="checkbox"  :id="index+'_'+row" :value="item.type+'@@'+typeValueItem"  v-model="checkedNames"></td>
                           <td><label :for="index+'_'+row">{{typeValueItem}}</label></td>

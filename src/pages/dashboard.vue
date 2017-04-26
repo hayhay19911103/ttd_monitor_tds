@@ -181,7 +181,7 @@
         }
         $.ajax({
           type: "post",
-          url: "http://10.32.212.22:8080/Dashboard_API/servlet/SaveDashboard",
+          url: "http://10.8.85.36:8090/DashboardAPI/servlet/SaveDashboard",
           data: me.info,
           success: function (data) {
             me.testCode = data.message.code
