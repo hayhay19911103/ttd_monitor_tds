@@ -10,7 +10,6 @@
               <caption style="text-align: left;font-size: 30px">任务列表页</caption>
               <thead>
               <tr role="row" class="row-header">
-                <th>id</th>
                 <th>任务名称</th>
                 <th>数据来源</th>
                 <th>创建时间</th>
@@ -20,7 +19,6 @@
               </thead>
               <tbody>
               <tr v-for="(item,index) in pageList">
-                <th>{{item.isplay}}</th>
                 <td>{{item.taskname}}</td>
                 <td>{{item.sourcedata}}</td>
                 <td>{{item.createdtime}}</td>
@@ -181,7 +179,6 @@
               data: {jobId: item.id},
               dataType: "jsonp",
               success: function (data) {
-                debugger;
                 if (data.message.code == 0) {
                   alert('删除成功！')
                   me.searchList()

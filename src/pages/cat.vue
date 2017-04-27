@@ -70,8 +70,6 @@
               <input type="checkbox" id="Std(ms)" value="Std(ms)" v-model="checkedTags">
               <label for="Std(ms)">Std(ms)</label>
               <input type="checkbox" id="QPS" value="QPS" v-model="checkedTags"><label for="QPS">QPS</label>
-              <input type="checkbox" id="Percent%" value="Percent%" v-model="checkedTags">
-              <label for="Percent%">Percent%</label>
             </div>
             <label v-if='tips.checkedTagsTip' class="validate" style="color: red;font-size: 8px">*不能为空</label>
           </div>
@@ -80,13 +78,13 @@
 
           <!--Type区域-->
           <div class="row form-inline distance col-md-12" v-if="visible">
-            <div style="border: 1px solid ;width: 90%;float: left;">
+            <div style="border: 1px solid ;width: 85%;float: left;">
               <label style="position:absolute;top: 0px;">Type:</label>
               <div class="checkbox" style="margin-top: 0px;margin-left: 50px">
-                <template v-for="(type,index) in typeList" v-if="type!='System'||type!='all'">
+                <div v-for="(type,index) in typeList" v-if="type!='System'&&type!='all'" style="float: left">
                   <input type="checkbox" :id="type" :value="type" v-model="checkedTypes">
                   <label :for="type">{{type}}</label>
-                </template>
+                </div>
               </div>
             </div>
 
@@ -260,6 +258,7 @@
           dataType: "jsonp",
           success: function (data) {
             me.typeList = data[0].typeValue
+            debugger
             me.visible = true
           }
         });
