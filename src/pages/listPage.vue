@@ -58,6 +58,9 @@
   </div>
 </template>
 <style>
+  #listPage{
+    overflow: hidden;
+  }
   table tr th {
     text-align: center;
   }
@@ -102,56 +105,86 @@
         })
       },
       playOrPauseJob: function (item) {
-        if (item.sourcedata == "Cat") {
-          $.ajax({
-            type: "post",
-            url: "http://10.8.85.36:8090/DashboardAPI/servlet/PauseDashboard",//todo
-            data: {
-              jobId: item.id,
-              isPlay: item.isplay == 1 ? 0 : 1
-            },
-            dataType: "jsonp",
-            success: function (data) {
+        var me = this
+        this.$confirm(item.isplay==1?'此操作将暂停该job':'此操作将启动该job', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        }).then(() => {
+          if (item.sourcedata == "Cat") {
+            $.ajax({
+              type: "post",
+              url: "http://10.8.85.36:8090/DashboardAPI/servlet/PauseDashboard",//todo
+              data: {
+                jobId: item.id,
+                isPlay: item.isplay == 1 ? 0 : 1
+              },
+              dataType: "jsonp",
+              success: function (data) {
 //              debugger;
-              if (data.code == 0) {
-                if (item.isplay == 1) {
-                  alert("暂停成功")
-                  item.isplay = 0
-                } else if (item.isplay == 0) {
-                  alert("开启成功")
-                  item.isplay = 1
+                if (data.code == 0) {
+                  if (item.isplay == 1) {
+                    me.$message({
+                      type: 'success',
+                      message: '暂停成功!'
+                    }) ,
+                      item.isplay = 0
+                  } else if (item.isplay == 0) {
+                    me.$message({
+                      type: 'success',
+                      message: '启动成功!'
+                    }) ,
+                      item.isplay = 1
+                  }
+                } else {
+                  me.$message({
+                    type: 'info',
+                    message: '操作失败!'
+                  })
                 }
-              } else {
-                alert('操作失败！')
-              }
-            },
-          })
-        } else if (item.sourcedata == "dashboard") {
-          $.ajax({
-            type: "post",
-            url: "http://10.8.85.36:8090/DashboardAPI/servlet/PauseDashboard",
-            data: {
-              jobId: item.id,
-              isPlay: item.isplay == 1 ? 0 : 1
-            },
-            dataType: "jsonp",
-            success: function (data) {
+              },
+            })
+          } else if (item.sourcedata == "dashboard") {
+            $.ajax({
+              type: "post",
+              url: "http://10.8.85.36:8090/DashboardAPI/servlet/PauseDashboard",
+              data: {
+                jobId: item.id,
+                isPlay: item.isplay == 1 ? 0 : 1
+              },
+              dataType: "jsonp",
+              success: function (data) {
 //              debugger;
-              if (data.code == 0) {
-                if (item.isplay == 1) {
-                  alert("暂停成功")
-                  item.isplay = 0
-                } else if (item.isplay == 0) {
-                  alert("开启成功")
-                  item.isplay = 1
+                if (data.code == 0) {
+                  if (item.isplay == 1) {
+                    me.$message({
+                      type: 'success',
+                      message: '暂停成功!'
+                    })
+                    item.isplay = 0
+                  } else if (item.isplay == 0) {
+                    me.$message({
+                      type: 'success',
+                      message: '启动成功!'
+                    })
+                    item.isplay = 1
+                  }
+                } else {
+                  me.$message({
+                    type: 'info',
+                    message: 'job不存在!'
+                  })
                 }
-              } else {
-                alert('操作失败！')
-              }
-            },
-          })
-        }
+              },
+            })
+          }
 
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消操作'
+          });
+        });
       },
       delJob: function (item) {
         var me = this;
@@ -169,10 +202,16 @@
               success: function (data) {
 //                debugger
                 if (data.message.code == 0) {
+                  me.$message({
+                    type: 'success',
+                    message: '删除成功!'
+                  })
                   me.searchList()
-                  alert('删除成功！')
                 } else {
-                  alert('job不存在！')
+                  me.$message({
+                    type: 'info',
+                    message: 'job不存在!'
+                  })
                 }
               }
             })

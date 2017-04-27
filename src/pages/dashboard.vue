@@ -50,7 +50,7 @@
               <input type="text" class="form-control input-sm" id="metricName" placeholder="" v-model="info.metricName"
                      list="metricNameList" style="width: 500px;">
               <datalist class=" input-sm" id="metricNameList">
-                <option value="fx.ubt.pv.count"></option>
+                <option value="fx.ubt.pv.count">xcvcfbvxcf</option>
                 <option value="fx.ubt.mobile.pv.count"></option>
                 <option value="fx.ubt.jserror.count"></option>
                 <option value="fx.ubt.perf.domready"></option>
@@ -87,28 +87,18 @@
           </div>
         </form>
       </div>
-      <!-- Modal -->
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-              </button>
-              <h4 class="modal-title" id="myModalLabel">提示信息</h4>
-            </div>
-            <div class="modal-body" style="text-align: center; height: 150px;">
-              <h3>保存成功，你可以继续：</h3>
-              <div @click="goList"><h4><a>去列表页查看</a></h4></div>
-              <div @click="continueAdd"><h4><a>继续添加数据源</a></h4></div>
-
-            </div>
-          </div>
-        </div>
-      </div>
+      <el-dialog title="提示" v-model="dialogVisible" size="tiny"  style="text-align: center;">
+        <h3>保存成功，你可以继续：</h3>
+        <div @click="goList"><h4><a>去列表页查看</a></h4></div>
+        <div @click="continueAdd"><h4><a>继续添加数据源</a></h4></div>
+      </el-dialog>
     </div>
   </div>
 </template>
 <style>
+  #dashboard{
+    overflow: hidden;
+  }
   .distance {
     margin-top: 10px;
   }
@@ -143,6 +133,7 @@
           tag: "",//输入的tag
           groupBy: "",//输入的group by
         },
+        dialogVisible:false,
         taskNameTip: false,
         tagTip: false,
         metricNameTip: false,
@@ -180,19 +171,27 @@
         if (me.info.tag.length === 0) {
           me.tagTip = true;
         }
-        if (me.info.tag.length !== 0&&me.info.groupBy.length !== 0&&me.info.metricName.length !== 0&&me.info.taskName.length !== 0){
+        if (me.info.tag.length !== 0 && me.info.groupBy.length !== 0 && me.info.metricName.length !== 0 && me.info.taskName.length !== 0) {
           $.ajax({
             type: "post",
             url: "http://10.8.85.36:8090/DashboardAPI/servlet/SaveDashboard",
             data: me.info,
-            dataType:"jsonp",
+            dataType: "jsonp",
             success: function (data) {
 //              debugger;
               me.testCode = data.message.code
               if (me.testCode == 0) {
-                $("#myModal").modal('show')
+                  me.dialogVisible=true
               } else {
-                alert("请确保信息填写正确")
+                me.$alert('信息填写有误，保存失败', '标题名称', {
+                  confirmButtonText: '确定',
+                  callback: action => {
+                    this.$message({
+                      type: 'info',
+                      message: `action: ${ action }`
+                    });
+                  }
+                });
               }
             },
           })

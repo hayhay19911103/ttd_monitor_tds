@@ -108,13 +108,14 @@
                       <table class="table table-bordered table-hover">
                         <thead>
                         <tr role="row" class="row-header">
-                          <th><input type="checkbox"></th>
+                          <!--<th><input type="checkbox" id="check_all" @click="checkAll"></th>-->
+                          <th></th>
                           <th>Name</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr v-for="(typeValueItem,row) in item.typeValue">
-                          <td><input type="checkbox" :id="index+'_'+row" :value="item.type+'@@'+typeValueItem"
+                          <td><input type="checkbox" :id="index+'_'+row" :value="item.type+'@@'+typeValueItem" name="chk_list"
                                      v-model="checkedNames"></td>
                           <td><label :for="index+'_'+row">{{typeValueItem}}</label></td>
                         </tr>
@@ -134,28 +135,18 @@
           </div>
         </form>
       </div>
-      <!-- Modal -->
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-              </button>
-              <h4 class="modal-title" id="myModalLabel">提示信息</h4>
-            </div>
-            <div class="modal-body" style="text-align: center; height: 150px;">
-              <h3>保存成功，你可以继续：</h3>
-              <div @click="goList"><h4>去列表页查看</h4></div>
-              <div @click="continueAdd"><h4>继续添加数据源</h4></div>
-
-            </div>
-          </div>
-        </div>
-      </div>
+      <el-dialog title="提示" v-model="dialogVisible" size="tiny"  style="text-align: center;">
+        <h3>保存成功，你可以继续：</h3>
+        <div @click="goList"><h4><a>去列表页查看</a></h4></div>
+        <div @click="continueAdd"><h4><a>继续添加数据源</a></h4></div>
+      </el-dialog>
     </div>
   </div>
 </template>
 <style>
+  #cat{
+    overflow: hidden;
+  }
   .checkbox label {
     display: inline-block;
     width: 200px;
@@ -202,6 +193,7 @@
         typeList: [],//接收返回的type
         tabsData: [],//接收返回的name,变量
         selectedList: [],//选中的type对应name
+        dialogVisible:false,
         tips:{
           taskNameTip: false,//验证用
           checkedTagsTip: false,
@@ -270,12 +262,14 @@
           traditional: true,
           dataType: "jsonp",
           success: function (data) {
-//              debugger
             me.tabsData = data
             me.showTab = true
-//            $("#docTabs a:first").tab('show')
           }
         })
+      },
+      checkAll:function () {
+//          debugger
+        $("input[name='chk_list']").attr("checked",$(this).attr("checked"))
       },
       submit: function () {
         var me = this
@@ -310,7 +304,22 @@
             traditional: true,
             dataType: "jsonp",
             success: function (data) {
+//              保存成功
 //              debugger
+              if(true) {
+                me.dialogVisible = true
+              }else{
+                me.$alert('信息填写有误，保存失败', '标题名称', {
+                  confirmButtonText: '确定',
+                  callback: action => {
+                    this.$message({
+                      type: 'info',
+                      message: `action: ${ action }`
+                    });
+                  }
+                });
+
+              }
             }
           })
         }

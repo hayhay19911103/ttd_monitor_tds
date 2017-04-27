@@ -49,9 +49,12 @@
               <div class="panel">
                 <img src="../assets/u47.png">
                 <h2>报表平台</h2>
-                <router-link to="apiProperty" style="width: 100%;">接口性能大盘</router-link>
-                <router-link to="pageProperty" style="width: 100%;">页面性能大盘</router-link>
-                <router-link to="pageProperty" style="width: 100%;color: #9d9d9d">玩乐日报</router-link>
+                <a style="color: #9d9d9d;width: 100%;">接口性能大盘</a><br>
+                <a style="color: #9d9d9d;width: 100%;">页面性能大盘</a>
+                <a style="color: #9d9d9d;width: 100%;">玩乐日报</a>
+                <!--<router-link to="apiProperty" style="width: 100%;" >接口性能大盘</router-link>-->
+                <!--<router-link to="pageProperty" style="width: 100%;">页面性能大盘</router-link>-->
+                <!--<router-link to="pageProperty" style="width: 100%;">玩乐日报</router-link>-->
               </div>
             </div>
           </div>
