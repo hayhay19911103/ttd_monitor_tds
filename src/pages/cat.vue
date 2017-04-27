@@ -28,8 +28,8 @@
                 <option value="1" selected>1分钟</option>
                 <option value="10">10分钟</option>
                 <option value="60">1小时</option>
-                <option value="24*60 ">1天</option>
-                <option value="24*60*7">1周</option>
+                <option value="1440 ">1天</option>
+                <option value="10080">1周</option>
               </select>
             </div>
           </div>
@@ -83,7 +83,7 @@
             <div style="border: 1px solid ;width: 90%;float: left;">
               <label style="position:absolute;top: 0px;">Type:</label>
               <div class="checkbox" style="margin-top: 0px;margin-left: 50px">
-                <template v-for="(type,index) in typeList" v-if="type!=='System'||type!=='all'">
+                <template v-for="(type,index) in typeList" v-if="type!='System'||type!='all'">
                   <input type="checkbox" :id="type" :value="type" v-model="checkedTypes">
                   <label :for="type">{{type}}</label>
                 </template>
@@ -276,6 +276,7 @@
           traditional: true,
           dataType: "jsonp",
           success: function (data) {
+//              debugger
             me.tabsData = data
             me.showTab = true
 //            $("#docTabs a:first").tab('show')

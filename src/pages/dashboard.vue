@@ -17,8 +17,8 @@
                 <option value="1" selected>1分钟</option>
                 <option value="10">10分钟</option>
                 <option value="60">1小时</option>
-                <option value="24*60">1天</option>
-                <option value="24*60*7">1周</option>
+                <option value="1440">1天</option>
+                <option value="10080">1周</option>
               </select>
             </div>
           </div>
@@ -50,14 +50,14 @@
               <input type="text" class="form-control input-sm" id="metricName" placeholder="" v-model="info.metricName"
                      list="metricNameList" style="width: 500px;">
               <datalist class=" input-sm" id="metricNameList">
-                <option value="fx.ubt.pv.count">fx.ubt.pv.count&nbsp;&nbsp;页面pv</option>
-                <option value="fx.ubt.mobile.pv.count">fx.ubt.mobile.pv.count&nbsp;&nbsp;页面pv</option>
-                <option value="fx.ubt.jserror.count">fx.ubt.jserror.count&nbsp;&nbsp;页面jserror</option>
-                <option value="fx.ubt.perf.domready">fx.ubt.perf.domready&nbsp;&nbsp;页面domready</option>
-                <option value="js.lizard.ajaxready">js.lizard.ajaxready&nbsp;&nbsp;页面ajaxready</option>
-                <option value="thingstodo.framework.servicestack.latency">thingstodo.framework.servicestack.latency&nbsp;&nbsp;接口性能
+                <option value="fx.ubt.pv.count"></option>
+                <option value="fx.ubt.mobile.pv.count"></option>
+                <option value="fx.ubt.jserror.count"></option>
+                <option value="fx.ubt.perf.domready"></option>
+                <option value="js.lizard.ajaxready"></option>
+                <option value="thingstodo.framework.servicestack.latency">
                 </option>
-                <option value="thingstodo.framework.servicestack.count">thingstodo.framework.servicestack.count&nbsp;&nbsp;问量
+                <option value="thingstodo.framework.servicestack.count">
                 </option>
               </datalist>
               <label v-if='metricNameTip' class="validate" style="color: red;font-size: 8px;">*不能为空</label>
@@ -67,7 +67,7 @@
           <div class="row form-inline">
             <div class="form-group col-md-9">
               <input type="text" class="form-control input-sm col-md-6" style="width: 500px" id="tag"
-                     placeholder="appid=1000000444" v-model="info.tag">
+                     placeholder="appid=1000000444" v-model.trim="info.tag">
               <label style="color: gray;font-size: 8px;margin-left: 10px">注意区分大小写</label>
               <label v-if='tagTip' class="validate" style="color: red;font-size: 8px">*不能为空</label>
             </div>
@@ -76,7 +76,7 @@
           <div class="row form-inline">
             <div class="form-group col-md-9">
               <input type="text" class="form-control input-sm" id="groupBy" placeholder="appid;name"
-                     v-model="info.groupBy" style="width: 500px;">
+                     v-model.trim="info.groupBy" style="width: 500px;">
               <label style="color: gray;font-size: 8px;margin-left: 10px">注意区分大小写</label>
               <label v-if='groupByTip' class="validate" style="color: red;font-size: 8px">*不能为空</label>
             </div>
@@ -195,9 +195,6 @@
                 alert("请确保信息填写正确")
               }
             },
-//          error: function (e) {
-//            debugger
-//          }
           })
         }
       },
