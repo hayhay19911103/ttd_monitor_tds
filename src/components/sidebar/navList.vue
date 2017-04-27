@@ -18,13 +18,13 @@
         </el-menu-item-group>
       </el-submenu>
       <el-menu-item index="2">
-        <router-link to="graphy">图表</router-link>
+        <router-link to="">图表</router-link>
       </el-menu-item>
       <el-menu-item index="3">
-        <router-link to="board">看板</router-link>
+        <router-link to="">看板</router-link>
       </el-menu-item>
       <el-menu-item index="4">
-        <router-link to="warnRule">告警规则</router-link>
+        <router-link to="">告警规则</router-link>
       </el-menu-item>
     </el-menu>
   </div>

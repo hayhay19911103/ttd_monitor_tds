@@ -69,7 +69,7 @@
               <input type="text" class="form-control input-sm col-md-6" style="width: 500px" id="tag"
                      placeholder="appid=1000000444" v-model.trim="info.tag">
               <label style="color: gray;font-size: 8px;margin-left: 10px">注意区分大小写</label>
-              <label v-if='tagTip' class="validate" style="color: red;font-size: 8px">*不能为空</label>
+              <!--<label v-if='tagTip' class="validate" style="color: red;font-size: 8px">*不能为空</label>-->
             </div>
           </div>
           <label for="groupBy">Group By：</label>
@@ -135,7 +135,7 @@
         },
         dialogVisible:false,
         taskNameTip: false,
-        tagTip: false,
+//        tagTip: false,
         metricNameTip: false,
         groupByTip: false,
         testCode: ""//验证失败成功的代码
@@ -146,9 +146,9 @@
       taskName: function (val) {
         val.length == 0 ? this.taskNameTip = true : this.taskNameTip = false
       },
-      tag: function (val) {
-        val.length == 0 ? this.tagTip = true : this.tagTip = false
-      },
+//      tag: function (val) {
+//        val.length == 0 ? this.tagTip = true : this.tagTip = false
+//      },
       metricName: function (val) {
         val.length == 0 ? this.metricNameTip = true : this.metricNameTip = false
       },
@@ -168,10 +168,10 @@
         if (me.info.groupBy.length === 0) {
           me.groupByTip = true;
         }
-        if (me.info.tag.length === 0) {
-          me.tagTip = true;
-        }
-        if (me.info.tag.length !== 0 && me.info.groupBy.length !== 0 && me.info.metricName.length !== 0 && me.info.taskName.length !== 0) {
+//        if (me.info.tag.length === 0) {
+//          me.tagTip = true;
+//        }
+        if (me.info.groupBy.length !== 0 && me.info.metricName.length !== 0 && me.info.taskName.length !== 0) {
           $.ajax({
             type: "post",
             url: "http://10.8.85.36:8090/DashboardAPI/servlet/SaveDashboard",
