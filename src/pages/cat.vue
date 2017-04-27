@@ -194,6 +194,7 @@
         tabsData: [],//接收返回的name,变量
         selectedList: [],//选中的type对应name
         dialogVisible:false,
+        testCode:"",
         tips:{
           taskNameTip: false,//验证用
           checkedTagsTip: false,
@@ -292,7 +293,7 @@
           //当判断元素不为空时，提交请求
           $.ajax({
             type: "get",
-            url: "http://10.8.85.36:8090/CatAPI/GetCatType",//todo
+            url: "http://10.8.85.36:8090/CatAPI/AddCatJob",
             data: {
               taskName: me.taskName,
               timeInterval: me.timeInterval,
@@ -304,17 +305,17 @@
             traditional: true,
             dataType: "jsonp",
             success: function (data) {
-//              保存成功
-//              debugger
-              if(true) {
+              debugger
+              me.testCode = data.message.code
+              if(me.testCode == 0) {
                 me.dialogVisible = true
               }else{
-                me.$alert('信息填写有误，保存失败', '标题名称', {
+                me.$alert('信息填写有误，保存失败', '提示', {
                   confirmButtonText: '确定',
                   callback: action => {
-                    this.$message({
+                    me.$message({
                       type: 'info',
-                      message: `action: ${ action }`
+//                      message: `action: ${ action }`
                     });
                   }
                 });

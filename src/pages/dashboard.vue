@@ -50,7 +50,7 @@
               <input type="text" class="form-control input-sm" id="metricName" placeholder="" v-model="info.metricName"
                      list="metricNameList" style="width: 500px;">
               <datalist class=" input-sm" id="metricNameList">
-                <option value="fx.ubt.pv.count">xcvcfbvxcf</option>
+                <option value="fx.ubt.pv.count"></option>
                 <option value="fx.ubt.mobile.pv.count"></option>
                 <option value="fx.ubt.jserror.count"></option>
                 <option value="fx.ubt.perf.domready"></option>
@@ -183,12 +183,12 @@
               if (me.testCode == 0) {
                   me.dialogVisible=true
               } else {
-                me.$alert('信息填写有误，保存失败', '标题名称', {
+                me.$alert('信息填写有误，保存失败', '提示', {
                   confirmButtonText: '确定',
                   callback: action => {
-                    this.$message({
+                    me.$message({
                       type: 'info',
-                      message: `action: ${ action }`
+//                      message: `action: ${ action }`
                     });
                   }
                 });
