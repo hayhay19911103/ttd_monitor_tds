@@ -187,7 +187,7 @@
             data: me.info,
             dataType:"jsonp",
             success: function (data) {
-              debugger;
+//              debugger;
               me.testCode = data.message.code
               if (me.testCode == 0) {
                 $("#myModal").modal('show')

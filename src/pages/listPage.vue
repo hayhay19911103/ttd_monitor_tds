@@ -102,60 +102,64 @@
         })
       },
       playOrPauseJob: function (item) {
-          if(item.sourcedata=="Cat"){
-            $.ajax({
-              type: "post",
-              url: "http://10.8.85.36:8090/DashboardAPI/servlet/PauseDashboard",//todo
-              data: {
-                jobId: item.id,
-                isPlay: item.isplay == 1 ? 0 : 1
-              },
-              dataType: "jsonp",
-              success: function (data) {
-                debugger;
-                if (data.code == 0) {
-                  if (item.isplay == 1) {
-                    alert("暂停成功")
-                    item.isplay = 0
-                  } else if (item.isplay == 0) {
-                    alert("开启成功")
-                    item.isplay = 1
-                  }
-                } else {
-                  alert('操作失败！')
+        if (item.sourcedata == "Cat") {
+          $.ajax({
+            type: "post",
+            url: "http://10.8.85.36:8090/DashboardAPI/servlet/PauseDashboard",//todo
+            data: {
+              jobId: item.id,
+              isPlay: item.isplay == 1 ? 0 : 1
+            },
+            dataType: "jsonp",
+            success: function (data) {
+//              debugger;
+              if (data.code == 0) {
+                if (item.isplay == 1) {
+                  alert("暂停成功")
+                  item.isplay = 0
+                } else if (item.isplay == 0) {
+                  alert("开启成功")
+                  item.isplay = 1
                 }
-              },
-            })
-          }else if(item.sourcedata=="dashboard"){
-            $.ajax({
-              type: "post",
-              url: "http://10.8.85.36:8090/DashboardAPI/servlet/PauseDashboard",
-              data: {
-                jobId: item.id,
-                isPlay: item.isplay == 1 ? 0 : 1
-              },
-              dataType: "jsonp",
-              success: function (data) {
-                debugger;
-                if (data.code == 0) {
-                  if (item.isplay == 1) {
-                    alert("暂停成功")
-                    item.isplay = 0
-                  } else if (item.isplay == 0) {
-                    alert("开启成功")
-                    item.isplay = 1
-                  }
-                } else {
-                  alert('操作失败！')
+              } else {
+                alert('操作失败！')
+              }
+            },
+          })
+        } else if (item.sourcedata == "dashboard") {
+          $.ajax({
+            type: "post",
+            url: "http://10.8.85.36:8090/DashboardAPI/servlet/PauseDashboard",
+            data: {
+              jobId: item.id,
+              isPlay: item.isplay == 1 ? 0 : 1
+            },
+            dataType: "jsonp",
+            success: function (data) {
+//              debugger;
+              if (data.code == 0) {
+                if (item.isplay == 1) {
+                  alert("暂停成功")
+                  item.isplay = 0
+                } else if (item.isplay == 0) {
+                  alert("开启成功")
+                  item.isplay = 1
                 }
-              },
-            })
-          }
+              } else {
+                alert('操作失败！')
+              }
+            },
+          })
+        }
 
       },
       delJob: function (item) {
         var me = this;
-        if (confirm("确定删除本条数据吗？")) {
+        me.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
           if (item.sourcedata == 'Cat') {
             $.ajax({
               type: "post",
@@ -163,7 +167,7 @@
               data: {jobId: item.id},
               dataType: "jsonp",
               success: function (data) {
-                debugger;
+//                debugger
                 if (data.message.code == 0) {
                   me.searchList()
                   alert('删除成功！')
@@ -180,15 +184,27 @@
               dataType: "jsonp",
               success: function (data) {
                 if (data.message.code == 0) {
-                  alert('删除成功！')
+                  me.$message({
+                    type: 'success',
+                    message: '删除成功!'
+                  })
                   me.searchList()
                 } else {
-                  alert('job不存在！')
+                  me.$message({
+                    type: 'info',
+                    message: 'job不存在!'
+                  })
                 }
               }
             })
           }
-        }
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
+
       },
       handleCurrentChange: function (currentPage) {
         //当前页面变换

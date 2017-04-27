@@ -49,9 +49,9 @@
             </div>
           </div>
           <!--TAG区域-->
-          <div class="row form-inline distance col-md-12">
+          <div class="row form-inline distance col-md-12" style="float:left;">
             <label style="position:absolute;top: 20px;">TAG:</label>
-            <div class="checkbox" style="margin-top: 20px;margin-left: 50px">
+            <div class="checkbox" style="margin-top: 20px;margin-left: 50px;float: left">
               <input type="checkbox" id="Total" value="Total" v-model="checkedTags">
               <label for="Total">Total</label>
               <input type="checkbox" id="Failure" value="Failure" v-model="checkedTags">
@@ -73,9 +73,6 @@
             </div>
             <label v-if='tips.checkedTagsTip' class="validate" style="color: red;font-size: 8px">*不能为空</label>
           </div>
-
-
-
           <!--Type区域-->
           <div class="row form-inline distance col-md-12" v-if="visible">
             <div style="border: 1px solid ;width: 85%;float: left;">
@@ -87,7 +84,6 @@
                 </div>
               </div>
             </div>
-
             <label v-if='tips.checkedTypesTip' class="validate" style="color: red;font-size: 8px">*不能为空</label>
             <button type="button" class="btn btn-primary btn-sm " @click="showName"
                     style="margin-left: 20px;margin-top: 20px;">确定
@@ -162,7 +158,7 @@
 <style>
   .checkbox label {
     display: inline-block;
-    width: 180px;
+    width: 200px;
     height: 25px;
     margin-right: 10px;
   }
@@ -258,7 +254,6 @@
           dataType: "jsonp",
           success: function (data) {
             me.typeList = data[0].typeValue
-            debugger
             me.visible = true
           }
         });
@@ -315,7 +310,7 @@
             traditional: true,
             dataType: "jsonp",
             success: function (data) {
-              debugger
+//              debugger
             }
           })
         }
