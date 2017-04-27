@@ -19,6 +19,7 @@
     width:100%;
     background-color: #336699;
     line-height: 80px;
+    overflow: hidden;
     /*clear: both;*/
 
   }

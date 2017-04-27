@@ -37,6 +37,7 @@
     line-height: 80px;
     color: white;
     padding-left: 20px;
+    overflow: hidden;
   }
 
   .top ul li {

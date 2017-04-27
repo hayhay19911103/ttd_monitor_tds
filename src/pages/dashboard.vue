@@ -180,24 +180,26 @@
         if (me.info.tag.length === 0) {
           me.tagTip = true;
         }
-        $.ajax({
-          type: "post",
-          url: "http://10.8.85.36:8090/DashboardAPI/servlet/SaveDashboard",
-          data: me.info,
-          dataType:"jsonp",
-          success: function (data) {
-            debugger;
-            me.testCode = data.message.code
-            if (me.testCode == 0) {
-              $("#myModal").modal('show')
-            } else {
-              alert("请确保信息填写正确")
-            }
-          },
+        if (me.info.tag.length !== 0&&me.info.groupBy.length !== 0&&me.info.metricName.length !== 0&&me.info.taskName.length !== 0){
+          $.ajax({
+            type: "post",
+            url: "http://10.8.85.36:8090/DashboardAPI/servlet/SaveDashboard",
+            data: me.info,
+            dataType:"jsonp",
+            success: function (data) {
+              debugger;
+              me.testCode = data.message.code
+              if (me.testCode == 0) {
+                $("#myModal").modal('show')
+              } else {
+                alert("请确保信息填写正确")
+              }
+            },
 //          error: function (e) {
 //            debugger
 //          }
-        })
+          })
+        }
       },
       goList: function () {
         $("#myModal").modal('hide')

@@ -80,10 +80,10 @@
 
           <!--Type区域-->
           <div class="row form-inline distance col-md-12" v-if="visible">
-            <div style="border: 1px solid ;width: 80%;float: left;">
+            <div style="border: 1px solid ;width: 90%;float: left;">
               <label style="position:absolute;top: 0px;">Type:</label>
               <div class="checkbox" style="margin-top: 0px;margin-left: 50px">
-                <template v-for="(type,index) in typeList" v-if="type!='System'||type!='all'">
+                <template v-for="(type,index) in typeList" v-if="type!=='System'||type!=='all'">
                   <input type="checkbox" :id="type" :value="type" v-model="checkedTypes">
                   <label :for="type">{{type}}</label>
                 </template>
@@ -135,7 +135,7 @@
 
           </div>
           <div class="foot">
-            <button type="button" class="btn btn-primary btn-sm " @click="submit">保存</button>
+            <button type="button" class="btn btn-primary btn-sm " data-toggle="modal" @click="submit">保存</button>
             <button type="button" class="btn btn-primary btn-sm ">取消</button>
           </div>
         </form>
@@ -199,7 +199,7 @@
         taskName: "",
         timeInterval: "1",
         startTime: "",
-        appId: "760104",
+        appId: "",
 
         jobId: "",//修改的时候需要加上
         checkedTags: [],//选中的tag
@@ -300,11 +300,10 @@
           me.tips.checkedNamesTip = true;
         }
         if (me.taskName.length !== 0 && me.appId.length !== 0 && me.checkedTags.length !== 0 && me.checkedTypes.length !== 0&&me.checkedNames.length !== 0) {
-            debugger;
           //当判断元素不为空时，提交请求
           $.ajax({
             type: "get",
-            url: "http://10.8.85.36:8090/CatAPI/GetCatType",
+            url: "http://10.8.85.36:8090/CatAPI/GetCatType",//todo
             data: {
               taskName: me.taskName,
               timeInterval: me.timeInterval,
